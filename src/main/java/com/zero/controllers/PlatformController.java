@@ -5,21 +5,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.zero.service.GenreService;
+import com.zero.service.PlataformService;
 
 import jakarta.annotation.PostConstruct;
 
 @Controller
-@RequestMapping("/genre")
-public class GenreController {
+@RequestMapping("/plataform")
+public class PlatformController {
 	
 	@Autowired
-    private GenreService genreService;
+	private PlataformService plataformService;
 
 
-    //@PostConstruct
-    public void getAllGenres() {
-        genreService.getAPIGenres();
+    @PostConstruct
+    public void getAllPlataforms() {
+        plataformService.getAPIPlatforms();
     }
 }
 

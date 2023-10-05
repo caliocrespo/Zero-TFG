@@ -7,14 +7,12 @@ import jakarta.persistence.*;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class DomainEntity {
 
-	// Constructors -----------------------------------------------------------
+	// Constructor
 
 	public DomainEntity() {
 		super();
 	}
 
-
-	// Identification ---------------------------------------------------------
 
 	private int	id;
 	private int	version;

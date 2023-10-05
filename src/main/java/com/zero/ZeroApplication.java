@@ -1,13 +1,18 @@
-package com.zero.domain;
+package com.zero;
+
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+
 
 @SpringBootApplication
+@ComponentScan(basePackages = "com.zero")
 public class ZeroApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ZeroApplication.class, args);
+		
 	}
 
 }

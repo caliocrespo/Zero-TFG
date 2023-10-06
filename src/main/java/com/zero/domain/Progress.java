@@ -14,6 +14,8 @@ public class Progress extends DomainEntity{
 	private String status;
 	private Float rating;
 	private Date finish_date;
+	private Review review;
+	private Game game;
 	
 	@NotBlank
 	public String getStatus() {
@@ -34,6 +36,24 @@ public class Progress extends DomainEntity{
 	}
 	public void setFinish_date(Date finish_date) {
 		this.finish_date = finish_date;
+	}
+	
+	//Relationships
+	
+	@OneToOne(optional=true,mappedBy="progress")
+	public Review getReview() {
+		return review;
+	}
+	public void setReview(Review review) {
+		this.review = review;
+	}
+	
+	@ManyToOne(optional=false)
+	public Game getGame() {
+		return game;
+	}
+	public void setGame(Game game) {
+		this.game = game;
 	}
 	
 	

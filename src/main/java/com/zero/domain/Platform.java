@@ -1,5 +1,7 @@
 package com.zero.domain;
 
+import java.util.Collection;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -11,6 +13,7 @@ public class Platform extends DomainEntity{
 	private String name;
 	private Integer year_start;
 	private String description;
+	private Collection<Game> games;
 	
 	public String getDescription() {
 		return description;
@@ -30,6 +33,16 @@ public class Platform extends DomainEntity{
 	}
 	public void setRelease_year(Integer release_year) {
 		this.year_start = release_year;
+	}
+	
+	//---------Relationships-------------------
+
+	@ManyToMany
+	public Collection<Game> getGames() {
+		return games;
+	}
+	public void setGames(Collection<Game> games) {
+		this.games = games;
 	}
 	
 	

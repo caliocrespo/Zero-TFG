@@ -44,13 +44,15 @@ public class PlataformService {
 	//Others method
 	
 	public void getAPIPlatforms() {
-		System.out.println("hola");
+		
 		ResponseEntity<PlatformList> responseEntity = restTemplate.exchange(RAWG_URL,HttpMethod.GET,null,PlatformList.class);
-		System.out.println("Hola2");
+		
 		if(responseEntity.getStatusCode().is2xxSuccessful()) {
 			PlatformList plataformList=responseEntity.getBody();
+			
 			if(plataformList != null && plataformList.getResults() != null) {
 				List<PlatformAPI> platforms= plataformList.getResults();
+				
 				for(PlatformAPI pAPI : platforms) {
 					Platform addPlataform= new Platform();
 					addPlataform.setName(pAPI.getName());

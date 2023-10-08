@@ -12,7 +12,7 @@ import jakarta.validation.constraints.NotBlank;
 @Access(AccessType.PROPERTY)
 
 public class Game extends DomainEntity{
-	private String title;
+	private String name;
 	private String description;
 	private String image;
 	//private Integer rate;
@@ -24,7 +24,7 @@ public class Game extends DomainEntity{
 	
 	@NotBlank
 	public String getTitle() {
-		return title;
+		return name;
 	}
 	@NotBlank
 	public String getDescription() {
@@ -40,7 +40,7 @@ public class Game extends DomainEntity{
 		return release_date;
 	}
 	public void setTitle(String title) {
-		this.title = title;
+		this.name = title;
 	}
 	public void setDescription(String description) {
 		this.description = description;

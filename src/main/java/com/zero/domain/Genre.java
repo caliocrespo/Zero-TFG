@@ -10,6 +10,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public class Genre extends DomainEntity{
 	private String name;
+	private String slug;
 	private String description;
 	private Collection<Game> games;
 	
@@ -17,11 +18,20 @@ public class Genre extends DomainEntity{
 	public String getName() {
 		return name;
 	}
+	
+	public String getSlug() {
+		return slug;
+	}
+	@Column(length=65555)
 	public String getDescription() {
 		return description;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
+	}
+	public void setSlug(String slug) {
+		this.slug = slug;
 	}
 	public void setDescription(String description) {
 		this.description = description;

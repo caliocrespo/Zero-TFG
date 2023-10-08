@@ -20,7 +20,7 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class PlataformService {
 	
-	private final String RAWG_URL= "https://api.rawg.io/api/platforms?key=bc332b7707a14fefbfbdc66dc64bb588";
+	private final String RAWG_URL= "https://api.rawg.io/api/platforms?key=e63df09f5ae744498fb5a5ee6d3ca236";
 	
 	@Autowired
 	private final RestTemplate restTemplate;
@@ -53,12 +53,26 @@ public class PlataformService {
 			if(plataformList != null && plataformList.getResults() != null) {
 				List<PlatformAPI> platforms= plataformList.getResults();
 				
+				
 				for(PlatformAPI pAPI : platforms) {
-					Platform addPlataform= new Platform();
-					addPlataform.setName(pAPI.getName());
-					addPlataform.setRelease_year(pAPI.getYearStart());
-					addPlataform.setDescription(pAPI.getDescription());
-					platformRepository.save(addPlataform);
+					
+					if(platformRepository.findByName(pAPI.getName())==null) {
+						
+						String RAWG_URL2= "https://api.rawg.io/api/platforms/"+ pAPI.getId() +"?key=e63df09f5ae744498fb5a5ee6d3ca236";
+						
+						ResponseEntity<PlatformAPI> responseEntity2 = restTemplate.exchange(RAWG_URL2,HttpMethod.GET,null,PlatformAPI.class);
+						
+						PlatformAPI aux= responseEntity2.getBody();
+						
+						Platform addPlataform= new Platform();
+						
+						addPlataform.setIdRAWG(aux.getId());
+						addPlataform.setName(aux.getName());
+						addPlataform.setYear_start(aux.getYearStart());
+						addPlataform.setDescription(aux.getDescription());
+						
+						platformRepository.save(addPlataform);
+					}
 				}
 			}
 		}

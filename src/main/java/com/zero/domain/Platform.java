@@ -9,30 +9,39 @@ import jakarta.validation.constraints.NotBlank;
 @Access(AccessType.PROPERTY)
 
 public class Platform extends DomainEntity{
-
+	private int idRAWG;
 	private String name;
 	private Integer year_start;
 	private String description;
 	private Collection<Game> games;
 	
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
+	public int getIdRAWG() {
+		return idRAWG;
 	}
 	@NotBlank
 	public String getName() {
 		return name;
 	}
-	public Integer getRelease_year() {
+	public Integer getYear_start() {
 		return year_start;
+	}
+	@Column(length=65555)
+	public String getDescription() {
+		return description;
+	}
+	
+	
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public void setRelease_year(Integer release_year) {
-		this.year_start = release_year;
+	public void setIdRAWG(int idRAWG) {
+		this.idRAWG = idRAWG;
+	}
+	public void setYear_start(Integer year_start) {
+		this.year_start = year_start;
 	}
 	
 	//---------Relationships-------------------

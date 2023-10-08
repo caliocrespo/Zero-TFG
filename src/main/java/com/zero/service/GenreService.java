@@ -19,7 +19,7 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class GenreService {
 	
-	private final String RAWG_URL= "https://api.rawg.io/api/genres?key=bc332b7707a14fefbfbdc66dc64bb588";
+	private final String RAWG_URL= "https://api.rawg.io/api/genres?key=e63df09f5ae744498fb5a5ee6d3ca236";
 	
 	@Autowired
 	private final RestTemplate restTemplate;
@@ -42,19 +42,24 @@ public class GenreService {
 	
 	//Others method
 	public void getAPIGenres() {
-	    System.out.println("hola");
 	    ResponseEntity<GenreList> responseEntity = restTemplate.exchange(RAWG_URL, HttpMethod.GET, null, GenreList.class);
-
 	    if (responseEntity.getStatusCode().is2xxSuccessful()) {
 	        GenreList genreList = responseEntity.getBody();
 	        if (genreList != null && genreList.getResults() != null) {
 	            List<GenreAPI> genres = genreList.getResults();
 	            for (GenreAPI gAPI : genres) {
-	            	System.out.println(gAPI.getSlug()+gAPI.getDescription()+gAPI.getImageBackground());
-	                Genre addGenre = new Genre();
-	                addGenre.setName(gAPI.getName());
-	                addGenre.setDescription(gAPI.getDescription());
-	                genreRepository.save(addGenre);
+	            	
+	            	if(genreRepository.findByGenreSlug(gAPI.getSlug())==null) {
+		            	String RAWG_URL2= "https://api.rawg.io/api/genres/"+gAPI.getId()+"?key=e63df09f5ae744498fb5a5ee6d3ca236";
+		            	ResponseEntity<GenreAPI> responseEntity2 = restTemplate.exchange(RAWG_URL2,
+		            			HttpMethod.GET, null, GenreAPI.class);
+		            	GenreAPI aux= responseEntity2.getBody();
+		                Genre addGenre = new Genre();
+		                addGenre.setName(aux.getName());
+		                addGenre.setDescription(aux.getDescription());
+		                addGenre.setSlug(aux.getSlug());
+		                genreRepository.save(addGenre);
+		            }
 	            }
 	        }
 	    }

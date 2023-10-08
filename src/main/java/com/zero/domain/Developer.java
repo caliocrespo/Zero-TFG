@@ -10,6 +10,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public class Developer extends DomainEntity{
 	private String name;
+	private String slug;
 	private String description;
 	private Integer founded_year;
 	private Collection<Game> games;
@@ -18,6 +19,7 @@ public class Developer extends DomainEntity{
 	public String getName() {
 		return name;
 	}
+	@Column(length=65555)
 	public String getDescription() {
 		return description;
 	}
@@ -26,6 +28,12 @@ public class Developer extends DomainEntity{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getSlug() {
+		return slug;
+	}
+	public void setSlug(String slug) {
+		this.slug = slug;
 	}
 	public void setDescription(String description) {
 		this.description = description;

@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 @Access(AccessType.PROPERTY)
 
-public class List extends DomainEntity{
+public class GameList extends DomainEntity{
 	
 	private String title;
 	private String description;

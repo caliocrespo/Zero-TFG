@@ -20,7 +20,7 @@ public class GameController {
     private GameService gameService;
 
 
-    @PostConstruct
+    //@PostConstruct
     public void getAllGame() throws ParseException {
         gameService.getAPIGames();
     }

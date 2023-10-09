@@ -1,18 +1,21 @@
 package com.zero.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
 import org.hibernate.validator.constraints.URL;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
 
 public class Game extends DomainEntity{
-	private String name;
+	private String title;
+	private String slug;
 	private String description;
 	private String image;
 	//private Integer rate;
@@ -24,8 +27,12 @@ public class Game extends DomainEntity{
 	
 	@NotBlank
 	public String getTitle() {
-		return name;
+		return title;
 	}
+	public String getSlug() {
+		return slug;
+	}
+	@Column(length=65555)
 	@NotBlank
 	public String getDescription() {
 		return description;
@@ -34,13 +41,16 @@ public class Game extends DomainEntity{
 	public String getImage() {
 		return image;
 	}
-	
-	
 	public Date getRelease_date() {
 		return release_date;
 	}
+	
+	
 	public void setTitle(String title) {
-		this.name = title;
+		this.title = title;
+	}
+	public void setSlug(String slug) {
+		this.slug = slug;
 	}
 	public void setDescription(String description) {
 		this.description = description;
@@ -64,7 +74,7 @@ public class Game extends DomainEntity{
 	}
 	
 	
-	@ManyToOne(optional=false)
+	@ManyToOne(optional=true)
 	public Developer getDeveloper() {
 		return developer;
 	}
@@ -83,11 +93,24 @@ public class Game extends DomainEntity{
 	
 	
 	@ManyToMany(mappedBy="games")
+	@Valid
 	public Collection<Platform> getPlatforms() {
 		return platforms;
 	}
 	public void setPlatforms(Collection<Platform> platforms) {
 		this.platforms = platforms;
+	}
+	
+	//----------- Adding Methods ----------------
+	
+	public void addPlatform(Platform platform) {
+		if(this.platforms == null) {
+			platforms = new ArrayList<>();
+		}
+		
+		this.platforms.add(platform);
+		
+		platform.addGame(this);
 	}
 	
 	

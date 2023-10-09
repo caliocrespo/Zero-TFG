@@ -18,7 +18,7 @@ public class DeveloperController {
     private DeveloperService developerService;
 
 
-    @PostConstruct
+    //@PostConstruct
     public void getAllDeveloper() {
         developerService.getAPIDeveloper();
     }

@@ -1,6 +1,8 @@
 package com.zero.controllers;
 
 
+import java.text.ParseException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +20,8 @@ public class GameController {
     private GameService gameService;
 
 
-    //@PostConstruct
-    public void getAllGame() {
+    @PostConstruct
+    public void getAllGame() throws ParseException {
         gameService.getAPIGames();
     }
 }

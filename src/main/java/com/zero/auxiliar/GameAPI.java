@@ -9,28 +9,14 @@ public class GameAPI {
     private Integer id;
     private String slug;
     private String name;
+    private String description;
     private String released;
     private Boolean tba;
     @JsonProperty("background_image")
-    private String backgroundImage;
-    private Double rating;
-    @JsonProperty("rating_top")
-    private Integer ratingTop;
-    @JsonProperty("ratings_count")
-    private Integer ratingsCount;
-    @JsonProperty("reviews_text_count")
-    private String reviewsTextCount;
-    private Integer added;
-    @JsonProperty("added_by_status")
-    private Map<String, Integer> addedByStatus;
-    private Integer metacritic;
+    private String backgroundImage; 
     private Integer playtime;
-    @JsonProperty("suggestions_count")
-    private Integer suggestionsCount;
     private String updated;
-    @JsonProperty("esrb_rating")
-    private EsrbRating esrbRating;
-    private List<PlatformAPI> platforms;
+    private List<PlatformListAPI> platforms;
 
     // Getters and setters
 
@@ -54,7 +40,15 @@ public class GameAPI {
         return name;
     }
 
-    public void setName(String name) {
+    public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setName(String name) {
         this.name = name;
     }
 
@@ -82,64 +76,6 @@ public class GameAPI {
         this.backgroundImage = backgroundImage;
     }
 
-    public Double getRating() {
-        return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
-    }
-
-    public Integer getRatingTop() {
-        return ratingTop;
-    }
-
-    public void setRatingTop(Integer ratingTop) {
-        this.ratingTop = ratingTop;
-    }
-
-  
-
-    public Integer getRatingsCount() {
-        return ratingsCount;
-    }
-
-    public void setRatingsCount(Integer ratingsCount) {
-        this.ratingsCount = ratingsCount;
-    }
-
-    public String getReviewsTextCount() {
-        return reviewsTextCount;
-    }
-
-    public void setReviewsTextCount(String reviewsTextCount) {
-        this.reviewsTextCount = reviewsTextCount;
-    }
-
-    public Integer getAdded() {
-        return added;
-    }
-
-    public void setAdded(Integer added) {
-        this.added = added;
-    }
-
-    public Map<String, Integer> getAddedByStatus() {
-        return addedByStatus;
-    }
-
-    public void setAddedByStatus(Map<String, Integer> addedByStatus) {
-        this.addedByStatus = addedByStatus;
-    }
-
-    public Integer getMetacritic() {
-        return metacritic;
-    }
-
-    public void setMetacritic(Integer metacritic) {
-        this.metacritic = metacritic;
-    }
-
     public Integer getPlaytime() {
         return playtime;
     }
@@ -148,14 +84,7 @@ public class GameAPI {
         this.playtime = playtime;
     }
 
-    public Integer getSuggestionsCount() {
-        return suggestionsCount;
-    }
-
-    public void setSuggestionsCount(Integer suggestionsCount) {
-        this.suggestionsCount = suggestionsCount;
-    }
-
+ 
     public String getUpdated() {
         return updated;
     }
@@ -164,19 +93,11 @@ public class GameAPI {
         this.updated = updated;
     }
 
-    public EsrbRating getEsrbRating() {
-        return esrbRating;
-    }
-
-    public void setEsrbRating(EsrbRating esrbRating) {
-        this.esrbRating = esrbRating;
-    }
-
-    public List<PlatformAPI> getPlatforms() {
+    public List<PlatformListAPI> getPlatforms() {
         return platforms;
     }
 
-    public void setPlatforms(List<PlatformAPI> platforms) {
+    public void setPlatforms(List<PlatformListAPI> platforms) {
         this.platforms = platforms;
     }
 }

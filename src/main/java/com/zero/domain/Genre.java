@@ -14,6 +14,8 @@ public class Genre extends DomainEntity{
 	private String description;
 	private Collection<Game> games;
 	
+	//---------- Getters ----------
+	
 	@NotBlank
 	public String getName() {
 		return name;
@@ -26,6 +28,8 @@ public class Genre extends DomainEntity{
 	public String getDescription() {
 		return description;
 	}
+	
+	// ---------- Setters ----------
 	
 	public void setName(String name) {
 		this.name = name;

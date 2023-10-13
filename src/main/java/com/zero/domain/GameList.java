@@ -12,6 +12,8 @@ public class GameList extends DomainEntity{
 	private String description;
 	private boolean shared; //true public, false private
 	
+	//---------- Getters ----------
+	
 	public boolean isShared() {
 		return shared;
 	}
@@ -22,6 +24,9 @@ public class GameList extends DomainEntity{
 	public String getDescription() {
 		return description;
 	}
+	
+	// ---------- Setters ----------
+	
 	public void setTitle(String title) {
 		this.title = title;
 	}

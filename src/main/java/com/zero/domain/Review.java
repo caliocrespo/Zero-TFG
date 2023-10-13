@@ -11,11 +11,15 @@ public class Review extends DomainEntity{
 	private String text;
 	private Progress progress;
 
+	//---------- Getters ----------
+	
 	@Range(min=(long) 0.5, max=5)
 	public String getText() {
 		return text;
 	}
-
+	
+	// ---------- Setters ----------
+	
 	public void setText(String text) {
 		this.text = text;
 	}

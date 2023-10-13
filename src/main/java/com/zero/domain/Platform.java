@@ -16,6 +16,9 @@ public class Platform extends DomainEntity{
 	private String description;
 	private Collection<Game> games;
 	
+	
+	// ---------- Setters ----------
+	
 	public int getIdRAWG() {
 		return idRAWG;
 	}
@@ -31,6 +34,7 @@ public class Platform extends DomainEntity{
 		return description;
 	}
 	
+	// ---------- Setters ----------
 	
 	public void setDescription(String description) {
 		this.description = description;

@@ -17,6 +17,8 @@ public class Progress extends DomainEntity{
 	private Review review;
 	private Game game;
 	
+	//---------- Getters ----------
+	
 	@NotBlank
 	public String getStatus() {
 		return status;
@@ -28,6 +30,9 @@ public class Progress extends DomainEntity{
 	public Date getFinish_date() {
 		return finish_date;
 	}
+	
+	// ---------- Setters ----------
+	
 	public void setStatus(String status) {
 		this.status = status;
 	}

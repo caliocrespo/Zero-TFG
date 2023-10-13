@@ -25,6 +25,8 @@ public class Game extends DomainEntity{
 	private Collection<Genre> genres;
 	private Collection<Platform> platforms;
 	
+	//---------- Getters ----------
+	
 	@NotBlank
 	public String getTitle() {
 		return title;
@@ -45,6 +47,7 @@ public class Game extends DomainEntity{
 		return release_date;
 	}
 	
+	// ---------- Setters ----------
 	
 	public void setTitle(String title) {
 		this.title = title;

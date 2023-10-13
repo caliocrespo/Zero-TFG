@@ -15,6 +15,7 @@ public class Developer extends DomainEntity{
 	private Integer founded_year;
 	private Collection<Game> games;
 	
+	//---------- Getters ----------
 	@NotBlank
 	public String getName() {
 		return name;
@@ -26,12 +27,16 @@ public class Developer extends DomainEntity{
 	public Integer getFounded_year() {
 		return founded_year;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public String getSlug() {
 		return slug;
 	}
+	
+	// ---------- Setters ----------
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public void setSlug(String slug) {
 		this.slug = slug;
 	}

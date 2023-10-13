@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+    <!-- Importa la configuración de seguridad desde security.xml -->
+    <import resource="security.xml" />
+
+    <!-- Agrega otras configuraciones de la aplicación aquí si es necesario -->

@@ -18,7 +18,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
-public class PlataformService {
+public class PlatformService {
 	
 	private final String RAWG_URL= "https://api.rawg.io/api/platforms?key=e63df09f5ae744498fb5a5ee6d3ca236";
 	
@@ -33,7 +33,7 @@ public class PlataformService {
 	
 	//Constructor
 	
-	public PlataformService(RestTemplate restTemplate) {
+	public PlatformService(RestTemplate restTemplate) {
 		this.restTemplate = restTemplate;
 	}
 	

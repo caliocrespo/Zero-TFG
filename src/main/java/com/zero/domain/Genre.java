@@ -1,5 +1,6 @@
 package com.zero.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import jakarta.persistence.*;
@@ -49,6 +50,15 @@ public class Genre extends DomainEntity{
 	}
 	public void setGames(Collection<Game> games) {
 		this.games = games;
+	}
+	
+	//---------------------Adding methods ----------------
+	
+	public void addGame(Game game) {
+		if(this.games == null) {
+			this.games = new ArrayList<>();
+		}
+		this.games.add(game);
 	}
 	
 	

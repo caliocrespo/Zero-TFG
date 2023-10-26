@@ -18,7 +18,7 @@ public class Game extends DomainEntity{
 	private String slug;
 	private String description;
 	private String image;
-	//private Integer rate;
+	private Long rate;
 	private Date release_date;
 	private Collection<Progress> progress;
 	private Developer developer;
@@ -47,8 +47,16 @@ public class Game extends DomainEntity{
 		return release_date;
 	}
 	
+	public Long getRate() {
+		return rate;
+	}
+	
 	// ---------- Setters ----------
 	
+	
+	public void setRate(Long rate) {
+		this.rate = rate;
+	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -114,6 +122,15 @@ public class Game extends DomainEntity{
 		this.platforms.add(platform);
 		
 		platform.addGame(this);
+	}
+	
+	public void addGenre(Genre genre) {
+		if(this.genres == null) {
+			genres = new ArrayList<>();
+		}
+		
+		this.genres.add(genre);
+		genre.addGame(this);
 	}
 	
 	

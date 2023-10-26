@@ -1,6 +1,8 @@
 package com.zero.controllers;
 
 
+import java.text.ParseException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +19,13 @@ public class PlatformController {
 	
 	@Autowired
 	private PlatformService platformService;
+	
+	@Autowired
+	private GameController gameController;
 
 
     //@PostConstruct
-    public void getAllPlataforms() {
+    public void getAllPlataforms() throws ParseException {
         platformService.getAPIPlatforms();
     }
     

@@ -11,19 +11,20 @@
 
 	<div class="d-flex justify-content-center" style="margin-top: 20px;">
 		<div class="row ">
-			<div class="col-xl-4" th:each="game : ${games}">
+			<div class="col-xl-4" th:each="genre : ${genres}">
 				<div class="card" style="width: 400px; height: 480px; margin-bottom: 50px;">
-					<img th:src="${game.image}" class="card-img-top" alt="Not found"
-						style="width: 400px; height: 200px;">
-					<div class="card-body">
-						<h5 class="card-title" th:text="${game.title}"></h5>
-						<p class="text-end fs-4 fst-italic fw-bold  ">4/5<img src="/img/star.png"
-								style="height: 20px; margin-bottom: 6px;"></p>
-						<span class="card-text text-justify" th:text="${game.description}">
+					<div class="contain" style="width: 398px; height: 200px;">	
+						<img th:src="${genre.games[4].image}" class="card-img-top" alt="Not found"
+							 style="filter: grayscale(90%) blur(1.5px); width: 100%; height: 100%; display: block;">
+							<div class="centered" th:text="${genre.name}"></div>
+					</div>
+					<div class="card-body bg-dark text-light">
+						<h5 class="card-title" th:text="${genre.name}"></h5>
+						<span class="card-text text-justify" th:text="${genre.description}">
 							<p></p>
 						</span>
 						<div class="text-center" style="margin-top: 10px;">
-							<a href="#" class="btn btn-success align-center">More details >></a>
+							<a href="#" class="btn btn-success align-center">Show Games</a>
 						</div>
 					</div>
 				</div>
@@ -35,29 +36,29 @@
 	<nav aria-label="Pagination" th:if="${totalPages > 0}">
 		<ul class="pagination justify-content-center">
 			<li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
-				<a th:replace="~{fragments/paging :: paging(1, '<<', 'First Page')}"></a>
+				<a th:replace="~{fragments/pagingGenre :: paging(1, '<<', 'First Page')}"></a>
 			</li>
 			<li class="page-item font-weight-bold" th:classappend="${currentPage == 1} ? 'disabled'">
-				<a th:replace="~{fragments/paging :: paging(${currentPage - 1}, 'Prev', 'Previous Page')}"></a>
+				<a th:replace="~{fragments/pagingGenre :: paging(${currentPage - 1}, 'Prev', 'Previous Page')}"></a>
 			</li>
 			<li class="page-item disabled" th:if="${currentPage - 2 > 1}">
 				<a class="page-link" href="#">...</a>
 			</li>
 			<li class="page-item" th:classappend="${page == currentPage} ? 'active'"
 				th:each="page : ${#numbers.sequence(currentPage > 2 ? currentPage - 2 : 1, currentPage + 2 < totalPages ? currentPage + 2 : totalPages)}">
-				<a th:replace="~{fragments/paging :: paging(${page}, ${page}, 'Page ' + ${page})}"></a>
+				<a th:replace="~{fragments/pagingGenre :: paging(${page}, ${page}, 'Page ' + ${page})}"></a>
 			</li>
 			<li class="page-item disabled" th:if="${currentPage + 2 < totalPages}">
 				<a class="page-link" href="#">...</a>
 			</li>
 			<li class="page-item font-weight-bold" th:classappend="${currentPage == totalPages} ? 'disabled'">
-				<a th:replace="~{fragments/paging :: paging(${currentPage + 1},'Next', 'Next Page')}"></a>
+				<a th:replace="~{fragments/pagingGenre :: paging(${currentPage + 1},'Next', 'Next Page')}"></a>
 			</li>
 			<li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
-				<a th:replace="~{fragments/paging :: paging(${totalPages}, '>>', 'Last Page')}"></a>
+				<a th:replace="~{fragments/pagingGenre :: paging(${totalPages}, '>>', 'Last Page')}"></a>
 			</li>
 		</ul>
-	</nav>
+	</nav> 
 	<footer th:replace="~{master-page/footer}"></footer>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

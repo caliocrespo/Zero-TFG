@@ -15,3 +15,41 @@ btn btn-outline-success{
 	/*#A1887F*/
 }
 
+.text-end.fs-4.fst-italic.fw-bold{
+	color: #1C2833;
+} 
+
+.card-text.text-justify{
+	display: -webkit-box; 
+	height: 100px; 
+	overflow: hidden; 
+	text-overflow: ellipsis;
+ 	-webkit-line-clamp: 4; 
+ 	line-clamp: 4; 
+ 	-webkit-box-orient: vertical;
+
+}
+
+.row{
+	box-sizing: content-box;
+    max-width: 1400px;
+    width: auto
+}
+
+.contain{
+	font-weight: bold;
+	font-family: 'Trebuchet MS', sans-serif;
+	-webkit-text-stroke: 3px black;
+	font-size: 50px;
+	position: relative;
+	text-align: center;
+	color: white;
+	display:  inline-block;
+}
+
+.centered{
+	position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+}

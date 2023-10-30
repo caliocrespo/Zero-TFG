@@ -13,7 +13,6 @@ public class Review extends DomainEntity{
 
 	//---------- Getters ----------
 	
-	@Range(min=(long) 0.5, max=5)
 	public String getText() {
 		return text;
 	}
@@ -25,7 +24,7 @@ public class Review extends DomainEntity{
 	}
 	
 	
-	//Relationships
+	//---------Relationships---------------
 	
 	@OneToOne(optional=false)
 	public Progress getProgress() {

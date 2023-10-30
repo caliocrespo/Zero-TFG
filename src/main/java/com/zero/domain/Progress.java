@@ -12,10 +12,11 @@ import jakarta.validation.constraints.NotBlank;
 
 public class Progress extends DomainEntity{
 	private String status;
-	private Float rating;
+	private Long rating;
 	private Date finish_date;
 	private Review review;
 	private Game game;
+	private UserEntity user;
 	
 	//---------- Getters ----------
 	
@@ -24,7 +25,7 @@ public class Progress extends DomainEntity{
 		return status;
 	}
 	@Range(min=(long) 0.5, max=5)
-	public Float getRating() {
+	public Long getRating() {
 		return rating;
 	}
 	public Date getFinish_date() {
@@ -36,14 +37,14 @@ public class Progress extends DomainEntity{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public void setRating(Float rating) {
+	public void setRating(Long rating) {
 		this.rating = rating;
 	}
 	public void setFinish_date(Date finish_date) {
 		this.finish_date = finish_date;
 	}
 	
-	//Relationships
+	//---------Relationships------------------
 	
 	@OneToOne(optional=true,mappedBy="progress")
 	public Review getReview() {
@@ -59,6 +60,15 @@ public class Progress extends DomainEntity{
 	}
 	public void setGame(Game game) {
 		this.game = game;
+	}
+	
+	@ManyToOne(optional=false)
+	public UserEntity getUser() {
+		return user;
+	}
+	
+	public void setUser(UserEntity user) {
+		this.user = user;
 	}
 	
 	

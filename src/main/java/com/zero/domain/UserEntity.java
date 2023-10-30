@@ -1,31 +1,25 @@
 package com.zero.domain;
 
 
-import java.util.Set;
+import java.util.Collection;
 
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 
 @Entity
+@Access(AccessType.PROPERTY)
 @Table(name= "user")
-public class UserEntity {
+public class UserEntity extends DomainEntity{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
 	
 	@NotBlank
 	private String name;
@@ -38,15 +32,43 @@ public class UserEntity {
 	private String username;
 	@NotBlank
 	private String password;
+	private String country;
+	private String image;
+	private Collection<Role> roles;
 	
-	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Role.class, cascade = CascadeType.PERSIST)
+	
+	private Collection<Progress> progress;
+	private Collection<GameList> lists;
+	
+	//private Set<Role> roles;
+
+	public UserEntity(@NotBlank String name, @NotBlank String lastName, @Email @NotBlank String email,
+			@NotBlank String username, @NotBlank String password, String country, String image,
+			Collection<Role> roles) {
+		super();
+		this.name = name;
+		this.lastName = lastName;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.country = country;
+		this.image = image;
+		this.roles = roles;
+	}
+	
+	public UserEntity() {
+		
+	}
+	
+	//---------Getters--------------
 	
 	
-	private Set<Role> roles;
+	
 
 	public String getName() {
 		return name;
 	}
+
 
 	public String getLastName() {
 		return lastName;
@@ -64,8 +86,23 @@ public class UserEntity {
 		return password;
 	}
 
-	public Set<Role> getRoles() {
-		return roles;
+	public String getCountry() {
+		return country;
+	}
+
+	public String getImage() {
+		return image;
+	}
+	
+	//---------Setters--------------
+
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public void setName(String name) {
@@ -87,17 +124,35 @@ public class UserEntity {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
-	
 	
 	
 	
 	//-------------Relationships----------------
 	
-	
+	@OneToMany(mappedBy="user")
+	public Collection<Progress> getProgress() {
+		return progress;
+	}
+	@OneToMany(mappedBy="user")
+	public Collection<GameList> getLists() {
+		return lists;
+	}
+	@ManyToMany (fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	public Collection<Role> getRoles() {
+		return roles;
+	}
 
+	public void setProgress(Collection<Progress> progress) {
+		this.progress = progress;
+	}
+
+	public void setLists(Collection<GameList> lists) {
+		this.lists = lists;
+	}
+
+	
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
+	}
 
 }

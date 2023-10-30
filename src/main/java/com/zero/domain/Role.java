@@ -9,21 +9,27 @@ import jakarta.persistence.Id;
 
 
 @Entity
-public class Role {
+public class Role extends DomainEntity{
+	
+	private String name;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
 	
-	@Enumerated(EnumType.STRING)
-	private ERole name;
-	
-	
-	public ERole getName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(ERole name) {
+	public void setName(String name) {
 		this.name = name;
 	}
+
+	 
+	public Role() {
+		
+	}
+	
+	public Role(String name) {
+		super();
+		this.name = name;
+	}
+	
 }

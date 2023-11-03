@@ -1,61 +1,75 @@
 <!DOCTYPE html>
+
 <head>
-	
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
+
 <body class="color-body">
 	<header th:replace="~{master-page/header}"></header>
-	
-	
-	
-		<div class="bg-secondary d-flex justify-content-center align-items-center vh-100">
-			<div class="bg-white p-5 rounded-5" style="margin-bottom: 100px;">
-			<form th:action="@{/register}" method="post" th:object="${user}"> 
+
+
+
+	<div class="bg-secondary d-flex justify-content-center align-items-center vh-100">
+		<div class="bg-white p-5 rounded-5" style="margin-bottom: 100px;">
+			<div th:if=${param.error1}>
+				<div class="alert alert-danger">This email is already in use</div>
+			</div>
+			<div th:if=${param.error2}>
+				<div class="alert alert-danger">This username is already in use</div>
+			</div>
+			<form th:action="@{/register}" method="post" th:object="${user}">
 				<div class="mb-3">
 					<label for="name" class="form-label fw-semibold">*Name</label>
-					<input type="text" class="form-control" id="name" th:field="*{name}">
+					<input type="text" class="form-control" id="name" th:field="*{name}" required="required">
 				</div>
-				
+
 				<div class="mb-3">
 					<label for="lastName" class="form-label fw-semibold">*LastName</label>
-					<input type="text" class="form-control" id="lastName" th:field="*{lastName}">
+					<input type="text" class="form-control" id="lastName" th:field="*{lastName}" required="required">
 				</div>
-				
+
 				<div class="mb-3">
 					<label for="email" class="form-label fw-semibold">*Email</label>
-					<input type="email" class="form-control" id="email" placeholder="name@example.com" th:field="*{email}">
+					<input type="email" class="form-control" id="email" placeholder="name@example.com"
+						th:field="*{email}" required="required">
 				</div>
-				
+
 				<div class="mb-3">
 					<label for="username" class="form-label fw-semibold">*Username</label>
-					<input type="text" class="form-control" id="username" th:field="*{username}">
+					<input type="text" class="form-control" id="username" th:field="*{username}" required="required">
 				</div>
-		
+
 				<div class="mb-3">
 					<label for="password" class="form-label fw-semibold">*Password</label>
-					<input type="password" id="password" class="form-control" aria-describedby="passwordHelpInline" th:field="*{password}">
+					<input type="password" id="password" class="form-control" aria-describedby="passwordHelpInline"
+						th:field="*{password}" required="required">
 				</div>
-				
+
 				<div class="mb-3">
 					<label for="country" class="form-label fw-semibold">Country</label>
 					<input type="text" class="form-control" id="country" th:field="*{country}">
 				</div>
-				
+
 				<div class="mb-3">
-				  <label for="formFile" class="form-label fw-semibold">Profile Pic</label>
-				  <input class="form-control" type="file" id="image" th:field="*{image}">
+					<label for="formFile" class="form-label fw-semibold">Profile Pic</label>
+					<input class="form-control" type="file" id="image" th:field="*{image}">
 				</div>
-				
+
 				<div class="d-flex justify-context-center">
-					<button type="submit" class="btn btn-success" style="width: 300px; margin-top: 30px; margin-left: 30px">Create Account</button>
+					<button type="submit" class="btn btn-success"
+						style="width: 300px; margin-top: 30px; margin-left: 30px">Create Account</button>
 				</div>
-			</div>
 		</div>
+	</div>
 	</form>
-	
-	<footer th:replace="~{master-page/footer}"></footer>	
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+	<footer th:replace="~{master-page/footer}"></footer>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -87,6 +87,14 @@ public class GameService {
 		return pGame;
 	}
 	
+	public Game findById(int gameId) {
+		Game game;
+		
+		game= gameRepository.findById(gameId);
+				
+		return game;
+	}
+	
 	//Others method
 	
 	public void getAPIGames() throws ParseException {

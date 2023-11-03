@@ -14,5 +14,9 @@ public interface GameRepository extends JpaRepository<Game,Integer>{
 	Game findBySlug (String slugGame);
 	
 	Page<Game> findAll(Pageable pageable);
+	
+	@Query("select g from Game g where g.id = ?1")
+	Game findById(int gameId);
+	
 		
 }

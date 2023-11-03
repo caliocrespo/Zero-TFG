@@ -10,13 +10,19 @@
 	<header th:replace="~{master-page/header}"></header>
 	<div class="bg-secondary d-flex justify-content-center align-items-center vh-100">
 		<div class="bg-white p-5 rounded-5" style="margin-bottom: 100px;">
+			<div th:if="${param.logout}">
+				<div class="alert alert-info">You have been logout</div>
+			</div>
+			<div th:if=${param.success}>
+				<div class="alert alert-success">You have been registered</div>
+			</div>
 			<div class="d-flex justify-content-center">
 				<img src="/img/Sample_User_Icon.png" style= "height: 10rem">
 			</div>
 			<div th:if="${param.error}">
-				Invalid username and password.</div>
-			<div th:if="${param.logout}">
-				You have been logged out.</div>
+				<div class="alert alert-danger">Invalid password or username</div>
+			</div>
+			
 			<form th:action="@{/login}" method="post">
 				<div class="mb-3">
 					<label for="username" class="form-label">Username</label>
@@ -32,8 +38,7 @@
 					<a href="#" class="fw-semibold fst-italic text-decoration-none">Forgot your password?</a>
 				</div>
 				<div class="d-flex justify-context-center">
-					<!--<button type="button" class="btn btn-success" style="width: 300px; margin-top: 30px;">Login</button>-->
-					<input type="submit" value="Log in">
+					<button type="input" class="btn btn-success" style="width: 300px; margin-top: 30px;">Login</button>
 				</div>
 			</form>
 		</div>

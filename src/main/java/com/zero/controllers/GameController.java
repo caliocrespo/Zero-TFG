@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.data.domain.Pageable;
 
-
+import com.zero.domain.Developer;
 import com.zero.domain.Game;
+import com.zero.domain.Genre;
+import com.zero.domain.Platform;
 import com.zero.service.GameService;
 import com.zero.service.GenreService;
 
@@ -32,6 +34,34 @@ public class GameController {
     //@PostConstruct
     public void getAllRAWGGames() throws ParseException {
         gameService.getAPIGames();
+    }
+    
+    
+    @GetMapping("/game")
+    public ModelAndView game(@RequestParam int id) {
+    	ModelAndView mav;
+    	
+    	Game game=gameService.findById(id);
+    	
+    	mav = new ModelAndView("/game");
+    	
+    	Developer dev;
+    	if(game.getDeveloper()!=null)
+    		dev = game.getDeveloper();
+    	else {
+    		dev=new Developer();
+    		dev.setName("unkown");
+    	}
+    	
+    	Collection<Platform> platforms = game.getPlatforms();
+    	Collection<Genre> genres=game.getGenres();
+    	
+    	mav.addObject("game", game);
+    	mav.addObject("developer", dev);
+    	mav.addObject("platforms", platforms);
+    	mav.addObject("genres", genres);
+    	
+    	return mav;
     }
     
     @GetMapping("/games/list")

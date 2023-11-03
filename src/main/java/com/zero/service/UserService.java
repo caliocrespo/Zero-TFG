@@ -41,6 +41,9 @@ public class UserService implements UserDetailsService{
 		super();
 	}
 
+	
+	//Create method
+	
 	public void save(UserAux newUser) {
 		UserEntity user = new UserEntity(newUser.getName(),newUser.getLastName(), newUser.getEmail(), newUser.getUsername()
 				, passwordEncoder.encode(newUser.getPassword()),newUser.getCountry(), newUser.getImage(), Arrays.asList(new Role("USER")));
@@ -48,7 +51,30 @@ public class UserService implements UserDetailsService{
 		userRepository.save(user);
 		
 	}
-
+	
+	//Finds method
+	
+	public UserEntity findByEmail(String email) {
+		UserEntity user;
+		
+		user = this.userRepository.findByEmail(email);
+		
+		return user;
+	}
+	
+	
+	public UserEntity findByUsername(String username) {
+		UserEntity user;
+		
+		user = this.userRepository.findByUsername(username);
+		
+		return user;
+	}
+	
+	
+	
+	//Others method
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserEntity user = userRepository.findByUsername(username);
@@ -64,10 +90,5 @@ public class UserService implements UserDetailsService{
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 	}
 	
-	//Create method
-	
-	//Finds method
-	
-	//Others method
 
 }

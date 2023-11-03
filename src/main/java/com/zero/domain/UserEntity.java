@@ -6,6 +6,7 @@ import java.util.Collection;
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
@@ -21,16 +22,11 @@ import jakarta.validation.constraints.NotBlank;
 public class UserEntity extends DomainEntity{
 	
 	
-	@NotBlank
+	
 	private String name;
-	@NotBlank
 	private String lastName;
-	@Email
-	@NotBlank
 	private String email;
-	@NotBlank
 	private String username;
-	@NotBlank
 	private String password;
 	private String country;
 	private String image;
@@ -64,24 +60,28 @@ public class UserEntity extends DomainEntity{
 	
 	
 	
-
+	@NotBlank
 	public String getName() {
 		return name;
 	}
 
-
+	@NotBlank
 	public String getLastName() {
 		return lastName;
 	}
-
+	
+	@Column(unique = true)
+	@Email
+	@NotBlank
 	public String getEmail() {
 		return email;
 	}
-
+	@Column(unique = true)
+	@NotBlank
 	public String getUsername() {
 		return username;
 	}
-
+	@NotBlank
 	public String getPassword() {
 		return password;
 	}

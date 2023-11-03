@@ -46,9 +46,18 @@ public class SecurityController {
 	}
 	
 	@PostMapping("/register")
-	public String newUserAux(@ModelAttribute("user") UserAux newUser) {
+	public String newUserAux(@ModelAttribute("user") UserAux newUser) throws Exception {
+		String endpoint=null;
+		if(userService.findByEmail(newUser.getEmail())!=null) {
+			endpoint="redirect:/register?error1";			
+		}else if(userService.findByUsername(newUser.getUsername())!=null) {
+			endpoint="redirect:/register?error2";	
+		}else {
+			endpoint="redirect:/login?success";
 			userService.save(newUser);
-			return "redirect:/login";
+			
+		}
+		return endpoint;
 	}
 	
 }

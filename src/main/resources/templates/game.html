@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<head>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+
+<body class="color-body">
+	<header th:replace="~{master-page/header}"></header>
+	<div class="container text-center" style="background-color: #1C2833; color:aliceblue">
+		<!-- Stack the columns on mobile by making one full-width and the other half-width -->
+		<div class="row">
+			<div class="col-6 col-md-4"><img th:src="${game.image}" alt="Not found"
+					style="width: 300px; height: 150px; margin-top: 50px; border: 1px solid white;"></div>
+			<div class="col-6 col-md-5">
+				<h1 th:text="${game.title}"
+					style="font-size: 72px; line-height: 74px; font-weight: 700; margin-top: 50px; text-align: left;">
+				</h1>
+			</div>
+		</div>
+
+		<!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+		<div class="row">
+			<div class="col-6 col-md-4" style="margin-top: 30px; width: 340px; margin-left: 50px;">
+				<table class="table table-dark table-hover">
+					<tbody>
+						<tr>
+							<th>Developer</th>
+							<td><a th:text="${developer.name}"> </a></td>
+						</tr>
+						<tr>
+							<th>Platforms</th>
+							<td><div th:each="platform : ${platforms}">
+								<a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+								 th:text="${platform.name}" th:href="@{platform(id=${platform.id})}"></a>
+							</div></td>
+						</tr>
+						<tr>
+							<th>Genres</th>
+							<td><div th:each="genre : ${genres}">
+								<a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+								 th:text="${genre.name}" th:href="@{genre(id=${genre.id})}"></a>
+							</div></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-6 col-md-5" style="text-align: justify; margin-top: 30px;"
+				th:utext="${game.description}">
+			</div>
+			<div class="col-6 col-md-4">.col-6 .col-md-4</div>
+		</div>
+
+		<!-- Columns are always 50% wide, on mobile and desktop -->
+		<div class="row">
+			<div class="col-6">.col-6</div>
+			<div class="col-6">.col-6</div>
+		</div>
+	</div>
+	<footer th:replace="~{master-page/footer}"></footer>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,42 +1,42 @@
-.color-body{
+.color-body {
 	background-color: #90A4AE;
 }
 
-.btn btn-success{
-	margin-left: 10px;	
+.btn btn-success {
+	margin-left: 10px;
 }
 
-btn btn-outline-success{
-	margin-right:10px;
+btn btn-outline-success {
+	margin-right: 10px;
 }
 
-.beti{
-	background-color:#5F6063
-	/*#A1887F*/
+.beti {
+	background-color: #5F6063
+		/*#A1887F*/
 }
 
-.text-end.fs-4.fst-italic.fw-bold{
+.text-end.fs-4.fst-italic.fw-bold {
 	color: #1C2833;
-} 
+}
 
-.card-text.text-justify{
-	display: -webkit-box; 
-	height: 100px; 
-	overflow: hidden; 
+.card-text.text-justify {
+	display: -webkit-box;
+	height: 100px;
+	overflow: hidden;
 	text-overflow: ellipsis;
- 	-webkit-line-clamp: 4; 
- 	line-clamp: 4; 
- 	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 4;
+	line-clamp: 4;
+	-webkit-box-orient: vertical;
 
 }
 
-.row{
+.row {
 	box-sizing: content-box;
-    max-width: 1400px;
-    width: auto
+	max-width: 1400px;
+	width: auto
 }
 
-.contain{
+.contain {
 	font-weight: bold;
 	font-family: 'Trebuchet MS', sans-serif;
 	-webkit-text-stroke: 3px black;
@@ -44,12 +44,69 @@ btn btn-outline-success{
 	position: relative;
 	text-align: center;
 	color: white;
-	display:  inline-block;
+	display: inline-block;
 }
 
-.centered{
+.centered {
 	position: absolute;
-	  top: 50%;
-	  left: 50%;
-	  transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.game-title {
+	font-size: 72px;
+	line-height: 74px;
+	font-weight: 700;
+	margin-top: 50px;
+	text-align: left;
+
+}
+
+.col-6.col-md-4.info-table {
+	margin-top: 30px;
+	width: 340px;
+	margin-left: 50px;
+}
+
+.stats {
+	margin-left: -50px;
+	text-align: left;
+	align-content: start;
+	font-size: 17px;
+}
+
+.rating-box{
+	background-color: #5F6063;
+	align-items: center;
+}
+
+
+
+
+.stars i {
+	font-size: 4rem;
+	color: #66ca7f;
+	position: relative;
+	margin-left: -6px;
+}
+
+.stars div {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 50%;
+}
+
+.stars div:nth-child(1) {
+	left: 0;
+}
+
+.stars div:nth-child(2) {
+	right: 0;
+}
+
+.rating {
+	font-size: 1rem;
+	color: #777;
 }

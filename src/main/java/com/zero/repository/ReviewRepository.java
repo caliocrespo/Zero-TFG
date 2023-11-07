@@ -7,5 +7,5 @@ import com.zero.domain.Review;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review,Integer>{
-
+	
 }

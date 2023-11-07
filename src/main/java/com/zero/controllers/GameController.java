@@ -19,8 +19,11 @@ import com.zero.domain.Developer;
 import com.zero.domain.Game;
 import com.zero.domain.Genre;
 import com.zero.domain.Platform;
+import com.zero.domain.Progress;
+import com.zero.domain.Review;
 import com.zero.service.GameService;
 import com.zero.service.GenreService;
+import com.zero.service.ProgressService;
 
 import jakarta.annotation.PostConstruct;
 
@@ -29,6 +32,10 @@ public class GameController {
 	
 	@Autowired
     private GameService gameService;
+	
+	//Other Services
+	@Autowired
+	private ProgressService progressService;
 
 
     //@PostConstruct
@@ -46,18 +53,27 @@ public class GameController {
     	mav = new ModelAndView("/game");
     	
     	Developer dev;
-    	if(game.getDeveloper()!=null)
+    	if(game.getDeveloper()!=null) {
     		dev = game.getDeveloper();
-    	else {
-    		dev=new Developer();
-    		dev.setName("unkown");
+
+        	mav.addObject("developer", dev);
     	}
+    	
+    	Collection<Progress> progress = progressService.findByGame(id);
+    	
+    	if(progress.isEmpty()) {
+    		 mav.addObject("progressCount", "0");
+    		 mav.addObject("reviewsCount", "0");
+    	}else {
+    		mav.addObject("progressCount", Integer.toString(progress.size()));
+    	}
+    	
+    	
     	
     	Collection<Platform> platforms = game.getPlatforms();
     	Collection<Genre> genres=game.getGenres();
     	
     	mav.addObject("game", game);
-    	mav.addObject("developer", dev);
     	mav.addObject("platforms", platforms);
     	mav.addObject("genres", genres);
     	

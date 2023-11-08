@@ -1,5 +1,6 @@
 package com.zero.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import jakarta.persistence.*;
@@ -49,12 +50,22 @@ public class Developer extends DomainEntity{
 	
 	//---------Relationships-------------------
 	
-	@OneToMany(mappedBy="developer")
+	@ManyToMany
 	public Collection<Game> getGames() {
 		return games;
 	}
 	public void setGames(Collection<Game> games) {
 		this.games = games;
+	}
+	
+	//----------------Other methods-------------
+	
+	public void addGame(Game game) {
+		if(this.games == null) {
+			games = new ArrayList<>();
+		}
+		
+		this.games.add(game);
 	}
 
 }

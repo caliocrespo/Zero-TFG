@@ -1,5 +1,6 @@
 package com.zero.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,16 +41,26 @@ public class DeveloperService {
 	
 	//Finds method
 	
+	public Collection<Developer> findAll(){
+		
+		Collection<Developer> developers;
+		
+		developers = developerRepository.findAll();
+		
+		return developers;
+	}
+	
+	
 	//Others method
 	
 	public void getAPIDeveloper() {
 		int page=1;
 		
 		while(true) {
-			ResponseEntity<DeveloperList> responseEntity= restTemplate.exchange(RAWG_URL + "&page=" + page + "&page_size=20",
+			ResponseEntity<DeveloperList> responseEntity= restTemplate.exchange(RAWG_URL + "&page=" + page + "&page_size=15",
 					HttpMethod.GET, null,DeveloperList.class);
 			
-			if(responseEntity.getStatusCode().is2xxSuccessful() && page< 4) {
+			if(responseEntity.getStatusCode().is2xxSuccessful() && page< 3) {
 				DeveloperList developerList = responseEntity.getBody();
 				
 				if(developerList!=null && developerList.getResults()!=null) {

@@ -21,7 +21,7 @@ public class Game extends DomainEntity{
 	private Long rate;
 	private Date release_date;
 	private Collection<Progress> progress;
-	private Developer developer;
+	private Collection<Developer> developers;
 	private Collection<Genre> genres;
 	private Collection<Platform> platforms;
 	
@@ -85,12 +85,12 @@ public class Game extends DomainEntity{
 	}
 	
 	
-	@ManyToOne(optional=true)
-	public Developer getDeveloper() {
-		return developer;
+	@ManyToMany(mappedBy="games")
+	public Collection<Developer> getDevelopers() {
+		return developers;
 	}
-	public void setDeveloper(Developer developer) {
-		this.developer = developer;
+	public void setDevelopers(Collection<Developer> developers) {
+		this.developers = developers;
 	}
 	
 	
@@ -131,6 +131,15 @@ public class Game extends DomainEntity{
 		
 		this.genres.add(genre);
 		genre.addGame(this);
+	}
+	
+	public void addDeveloper(Developer developer) {
+		if(this.developers == null) {
+			developers = new ArrayList<>();
+		}
+		
+		this.developers.add(developer);
+		developer.addGame(this);
 	}
 	
 	

@@ -52,11 +52,11 @@ public class GameController {
     	
     	mav = new ModelAndView("/game");
     	
-    	Developer dev;
-    	if(game.getDeveloper()!=null) {
-    		dev = game.getDeveloper();
+    	Collection<Developer> developers;
+    	if(game.getDevelopers()!=null) {
+    		developers = game.getDevelopers();
 
-        	mav.addObject("developer", dev);
+        	mav.addObject("developers", developers);
     	}
     	
     	Collection<Progress> progress = progressService.findByGame(id);

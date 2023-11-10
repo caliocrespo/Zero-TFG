@@ -64,8 +64,11 @@ public class GameController {
     	if(progress.isEmpty()) {
     		 mav.addObject("progressCount", "0");
     		 mav.addObject("reviewsCount", "0");
+    		 mav.addObject("rating", "-");
     	}else {
     		mav.addObject("progressCount", Integer.toString(progress.size()));
+    		String rating = String.format("%.2f",progressService.findRatingByGame(id));
+    		mav.addObject("rating", rating);
     	}
     	
     	

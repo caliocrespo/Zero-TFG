@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -48,6 +50,14 @@ public class DeveloperService {
 		developers = developerRepository.findAll();
 		
 		return developers;
+	}
+	
+	public Page<Developer> findAllPagining(Pageable pageable){
+		Page<Developer> pDeveloper;
+		
+		pDeveloper = this.developerRepository.findAll(pageable);
+		
+		return pDeveloper;
 	}
 	
 	

@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+<a th:fragment="paging(pageNum, label, tooltip)" class="page-link"
+  th:href="@{'/developers/list?' + 'page=' + ${pageNum}}"
+  th:title="${tooltip}" rel="tooltip">
+  [[${label}]]
+</a>

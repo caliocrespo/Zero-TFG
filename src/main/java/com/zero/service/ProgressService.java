@@ -40,6 +40,14 @@ public class ProgressService {
 		return progress;
 	}
 	
+	public double findRatingByGame(int gameId) {
+		double avg_Rating;
+		
+		avg_Rating = progressRepository.findRatingByGame(gameId);
+		
+		return avg_Rating;
+	}
+	
 	//Others method
 
 }

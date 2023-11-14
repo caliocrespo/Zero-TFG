@@ -12,8 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.zero.domain.Developer;
 import com.zero.domain.Game;
@@ -24,10 +26,11 @@ import com.zero.domain.Review;
 import com.zero.service.GameService;
 import com.zero.service.GenreService;
 import com.zero.service.ProgressService;
+import com.zero.service.ReviewService;
 
 import jakarta.annotation.PostConstruct;
 
-@Controller
+@RestController
 public class GameController {
 	
 	@Autowired
@@ -36,6 +39,8 @@ public class GameController {
 	//Other Services
 	@Autowired
 	private ProgressService progressService;
+	@Autowired
+	private ReviewService reviewService;
 
 
     //@PostConstruct
@@ -60,6 +65,7 @@ public class GameController {
     	}
     	
     	Collection<Progress> progress = progressService.findByGame(id);
+    	Collection<Review> reviews = reviewService.findByGame(id);
     	
     	if(progress.isEmpty()) {
     		 mav.addObject("progressCount", "0");
@@ -67,8 +73,20 @@ public class GameController {
     		 mav.addObject("rating", "-");
     	}else {
     		mav.addObject("progressCount", Integer.toString(progress.size()));
-    		String rating = String.format("%.2f",progressService.findRatingByGame(id));
+    		mav.addObject("reviewsCount", Integer.toString(reviews.size()));
+    		String rating = String.format("%.1f",progressService.findRatingByGame(id));
     		mav.addObject("rating", rating);
+    	}
+    	
+    	
+    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    	Progress ownProgress = progressService.findByGameAndUser(id, username);
+    	
+    	if(ownProgress!=null) {
+    		mav.addObject("status", ownProgress.getStatus());
+    		mav.addObject("ownRating", ownProgress.getRating());
+    		mav.addObject("progressId", ownProgress.getId());
+    		mav.addObject("ownReview", ownProgress.getReview());
     	}
     	
     	

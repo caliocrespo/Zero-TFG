@@ -15,4 +15,10 @@ public interface ProgressRepository extends JpaRepository<Progress,Integer>{
 	
 	@Query("select AVG(p.rating) as rating from Progress p where p.game.id = ?1")
 	double findRatingByGame(int gameId); 
+	
+	@Query("select p from Progress p where p.game.id = ?1 AND p.user.username = ?2")
+	Progress findByGameAndUser(int gameId, String username);
+	
+	@Query("select p from Progress p where p.id = ?1")
+	Progress findById(int progressId);
 }

@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zero.repository.ProgressRepository;
-
+import com.zero.domain.Game;
 import com.zero.domain.Progress;
+import com.zero.domain.UserEntity;
 
 import jakarta.transaction.Transactional;
 
@@ -29,8 +30,34 @@ public class ProgressService {
 	}
 	
 	//Create method
+	public Progress create(Game game, UserEntity user) {
+		Progress progress;
+		
+		progress = new Progress();
+		
+		progress.setGame(game);
+		progress.setUser(user);
+		
+		return progress;
+	}
 	
+	public Progress save(Progress progress) {
+		Progress result;
+		
+		result = progressRepository.save(progress);
+		
+		return result;
+	}
 	//Finds method
+	
+	
+	public Progress findById(int progressId) {
+		Progress progress;
+		
+		progress = progressRepository.findById(progressId);
+		
+		return progress;
+	}
 	
 	public Collection<Progress> findByGame(int gameId){
 		Collection<Progress> progress;
@@ -46,6 +73,14 @@ public class ProgressService {
 		avg_Rating = progressRepository.findRatingByGame(gameId);
 		
 		return avg_Rating;
+	}
+	
+	public Progress findByGameAndUser(int gameId, String username) {
+		Progress progress;
+		
+		progress = progressRepository.findByGameAndUser(gameId, username);
+		
+		return progress;
 	}
 	
 	//Others method

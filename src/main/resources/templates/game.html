@@ -9,9 +9,12 @@
 </head>
 
 <body class="color-body">
+	
 	<header th:replace="~{master-page/header}"></header>
+	
 	<div class="container text-center" style="background-color: #1C2833; color:aliceblue; max-width: 1500px;">
 
+		<!-- Image and title -->
 		<div class="row">
 			<div class="col-6 col-md-4"><img th:src="${game.image}" alt="Not found"
 					style="width: 300px; height: 175px; margin-top: 50px; border: 1px solid white;"></div>
@@ -23,7 +26,8 @@
 
 			</div>
 		</div>
-
+		
+		<!-- All the Progress thing and number added number reviews -->
 		<div class="row" style="height: 20px;">
 			<div class="col-6 col-md-4"></div>
 			<div class="col-6 col-md-5 stats">
@@ -36,6 +40,13 @@
 
 			</div>
 			<div class="col" style="margin-top:-50px;">
+			<div th:if=${param.progressSuccess}>
+				<div class="alert alert-success" style="margin-top: -74px;">Progress saved!</div>
+			</div>
+			<div th:if=${param.reviewSuccess}>
+				<div class="alert alert-success" style="margin-top: -74px;">Review saved!</div>
+			</div>
+				<form method="post" action="/progress/rated">
 				<table class="table table-dark table-hover" style="border: 3px #198754 solid; ">
 					<tbody>
 						<tr>
@@ -50,7 +61,8 @@
 										<td>
 											<p th:text="${rating + '/5'}" style="font-size: 40px;"></p>
 										</td>
-										<td><img src="/img/star.png" style="height: 40px; margin-top:-15px;"></td>
+										<td><img src="/img/star.png"
+												style="height: 30px; margin-top:-20px; filter: invert(1)"></td>
 							</td>
 						</tr>
 				</table>
@@ -58,8 +70,10 @@
 				</tr>
 
 				<tr>
-					<td>
-						<p style="margin-right: -0px;">Your Rating</p>
+					
+					<td class="rating-container">
+						<input type="hidden" id="ownRating" name="ownRating" th:value="${ownRating}" />
+						<p>Your Rating</p>
 						<div class="stars">
 							<i class="bx bx-star">
 								<div></div>
@@ -82,26 +96,41 @@
 								<div></div>
 							</i>
 						</div>
-						<p class="rating"><span>0</span> out of 5</p>
+						<p class="rating"><span id="number" name="number">0</span> out of 5</p>
+						
 					</td>
 				</tr>
 				<tr>
-					<td><select
-							style="width: 100%; height: 100%;  text-align: center; font-size: 40px; font-weight: 700; color: aliceblue;">
+					<td><select id="selected" name="selected"
+							style="width: 100%; height: 100%; text-align: center; font-size: 25px; font-weight: 700; color: aliceblue;">
 							<option style="background-color: dodgerblue; font-weight: 700;">-SELECT-</option>
-							<option style="background-color: dodgerblue; font-weight: 700;">PLAYING</option>
-							<option style="background-color: green; font-weight: 700;">COMPLETED</option>
-							<option style="background-color: orangered; font-weight: 700;">DROPPED</option>
+							<option style="background-color: dodgerblue; font-weight: 700;"
+							th:selected="${status eq 'PLAYING'}">PLAYING</option>
+							<option style="background-color: green; font-weight: 700;"
+							th:selected="${status eq 'COMPLETED'}">COMPLETED</option>
+							<option style="background-color: orangered; font-weight: 700;"
+							th:selected="${status eq 'DROPPED'}">DROPPED</option>
 						</select></td>
 				</tr>
-				<tr><td><a href="#" class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover">Add a review</a></td></tr>
-				<tr><td><a href="#" class="btn btn-success align-center">Save Progress</a></td></tr>
+				<tr th:if="${status != null}">
+					<td th:if="${ownReview == null || ownReview.text == null}"><a th:href="@{review(id=${progressId})}"
+							class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover">Add
+							a review</a></td>
+					<td th:if="${ownReview != null && ownReview.text != null}"><a th:href="@{review(id=${progressId})}"
+							class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover">See/Modify your review
+							</a></td>
+				</tr>
+				<tr>
+					<td><button type="submit" class="btn btn-success" id="saveRate">Save Progress</button></td>
+				</tr>
 				</tbody>
 				</table>
+				<input type="hidden" name="gameId" th:value="${game.id}" />
+				</form>
 			</div>
 		</div>
 
-		<!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+		<!-- Realease date, developers, platforms and genres -->
 		<div class="row">
 			<div class="col-6 col-md-4 info-table">
 				<table class="table table-dark table-hover">
@@ -155,7 +184,7 @@
 			</div>
 		</div>
 
-		<!-- Columns are always 50% wide, on mobile and desktop -->
+		<!-- More reviews -->
 		<div class="row">
 			<div class="col-6 col-md-4 info-table"></div>
 			<div class="col-6 col-md-5" style="border-bottom: 1px solid white; margin-top: 10px;text-align: left;">
@@ -163,7 +192,7 @@
 			<div class="col-6 col-md-4"></div>
 		</div>
 
-
+		<!-- Reviews -->
 		<div class="row">
 			<div class="col-6 col-md-4 info-table"></div>
 			<div class="col-6 col-md-5" th:if="${reviews != null}"></div>
@@ -176,10 +205,12 @@
 
 	</div>
 	<footer th:replace="~{master-page/footer}"></footer>
+	 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="js/script.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 		crossorigin="anonymous"></script>
-	<script src="js/script.js"></script>
+	
 </body>
 
 </html>

@@ -57,6 +57,14 @@ public class GenreService {
 		return result;
 	}
 	
+	public Genre findById(int id) {
+		Genre genre;
+		
+		genre=this.genreRepository.findById(id);
+		
+		return genre;
+	}
+	
 	public Page<Genre> findAllPagining(Pageable paging) {
 		Page<Genre> pGenre;
 		

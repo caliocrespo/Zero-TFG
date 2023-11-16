@@ -23,6 +23,9 @@ public class ProgressService {
 	
 	//Others repositories/services
 	
+	@Autowired
+	private GameService gameService;
+	
 	//Constructor
 	
 	public ProgressService() {
@@ -45,6 +48,12 @@ public class ProgressService {
 		Progress result;
 		
 		result = progressRepository.save(progress);
+		
+		Game game = progress.getGame();
+		
+		game.setRate(this.progressRepository.findRatingByGame(game.getId()));
+		
+		gameService.save(game);
 		
 		return result;
 	}

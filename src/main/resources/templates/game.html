@@ -149,7 +149,7 @@
 								<div th:if="${developers !=null}">
 									<div th:each="developer : ${developers}">
 										<a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-											th:text="${developer.name}" th:href="@{developer(id=${developer.id})}"></a>
+											th:text="${developer.name}" th:href="@{games/listByDeveloper(developerId=${developer.id})}"></a>
 									</div>
 								</div>
 
@@ -161,7 +161,7 @@
 							<td>
 								<div th:each="platform : ${platforms}">
 									<a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-										th:text="${platform.name}" th:href="@{platform(id=${platform.id})}"></a>
+										th:text="${platform.name}" th:href="@{games/listByPlatform(platformId=${platform.id})}"></a>
 								</div>
 							</td>
 						</tr>
@@ -170,7 +170,7 @@
 							<td>
 								<div th:each="genre : ${genres}">
 									<a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-										th:text="${genre.name}" th:href="@{genre(id=${genre.id})}"></a>
+										th:text="${genre.name}" th:href="@{games/listByGenre(genreId=${genre.id})}"></a>
 								</div>
 							</td>
 						</tr>
@@ -187,20 +187,53 @@
 		<!-- More reviews -->
 		<div class="row">
 			<div class="col-6 col-md-4 info-table"></div>
-			<div class="col-6 col-md-5" style="border-bottom: 1px solid white; margin-top: 10px;text-align: left;">
-				REVIEWS</div>
+			<div class="col-6 col-md-5" style="border-bottom: 1px solid white; margin-top: 10px;">
+				<table style="width: 100%;">
+					<tr>
+						<td style="text-align: left;">
+							<p style="margin-bottom: -0px;">REVIEWS</p>
+						</td>
+						<td style="text-align: right;">
+							<a class="link-light link-underline-opacity-0 link-underline-opacity-0-hover" 
+							th:if="${reviews != null}" th:href="@{reviews/list(gameId=${game.id})}">MORE REVIEWS</a>
+						</td>
+					</tr>
+				</table>
+				
+				
+				</div>
 			<div class="col-6 col-md-4"></div>
 		</div>
 
 		<!-- Reviews -->
 		<div class="row">
 			<div class="col-6 col-md-4 info-table"></div>
-			<div class="col-6 col-md-5" th:if="${reviews != null}"></div>
+			
+			
 			<div class="col-6 col-md-5" th:if="${reviews == null}"
 				style="margin-top: 75px; margin-bottom: 75px;font-style: italic; ">
 				<span>No reviews yet</span>
 			</div>
+			<div class="col-6 col-md-5" th:if="${reviews != null}">
+				<div th:each="review, iterationStatus : ${reviews}">
+					<th:block th:if="${iterationStatus.index < 3}">
+						<div style="text-align: left; border-bottom: 0.2px solid grey;">
+							<table style="width: 100%;">
+								<tr><td>
+							<a class="link-success " th:text="${review.progress.user.username}" th:href="@{user(id=${review.progress.user.id})}"></a>
+							</td>
+							<td style="text-align: right;">
+								<p th:utext="${review.progress.rating % 1 == 0 ? #numbers.formatInteger(review.progress.rating,1) :
+								#numbers.formatDecimal(review.progress.rating,1,1,'POINT') + '/5'}"></p>
+							</td></tr>
+							<tr><td><p th:text="${review.text}"></p></td></tr>
+							</table>
+						</th:block>
+					</div>
+					
+				</div>
 			<div class="col-6 col-md-4"></div>
+		</div>
 		</div>
 
 	</div>

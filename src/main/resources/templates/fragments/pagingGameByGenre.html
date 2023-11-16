@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+<a th:fragment="paging(pageNum, label, tooltip, genreId)" class="page-link"
+  th:href="@{'/games/listByGenre?' + 'genreId=' + ${genreId} + '&page=' + ${pageNum}}"
+  th:title="${tooltip}" rel="tooltip">
+  [[${label}]]
+</a>

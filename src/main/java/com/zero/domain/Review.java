@@ -13,6 +13,7 @@ public class Review extends DomainEntity{
 
 	//---------- Getters ----------
 	
+	@Column(length=65555)
 	public String getText() {
 		return text;
 	}

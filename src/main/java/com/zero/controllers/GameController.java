@@ -23,8 +23,13 @@ import com.zero.domain.Genre;
 import com.zero.domain.Platform;
 import com.zero.domain.Progress;
 import com.zero.domain.Review;
+import com.zero.repository.GameRepository;
+import com.zero.repository.GenreRepository;
+import com.zero.repository.ReviewRepository;
+import com.zero.service.DeveloperService;
 import com.zero.service.GameService;
 import com.zero.service.GenreService;
+import com.zero.service.PlatformService;
 import com.zero.service.ProgressService;
 import com.zero.service.ReviewService;
 
@@ -35,12 +40,20 @@ public class GameController {
 	
 	@Autowired
     private GameService gameService;
+	@Autowired
+	private GameRepository gameRepository;
 	
 	//Other Services
 	@Autowired
 	private ProgressService progressService;
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	private GenreService genreService;
+	@Autowired
+	private PlatformService platformService;
+	@Autowired
+	private DeveloperService developerService;
 
 
     //@PostConstruct
@@ -76,6 +89,11 @@ public class GameController {
     		mav.addObject("reviewsCount", Integer.toString(reviews.size()));
     		String rating = String.format("%.1f",progressService.findRatingByGame(id));
     		mav.addObject("rating", rating);
+
+    	}
+    	
+    	if(reviews.size() > 0) {
+    		mav.addObject("reviews", reviews);
     	}
     	
     	
@@ -107,22 +125,100 @@ public class GameController {
     	ModelAndView mav = new ModelAndView("games/list");
     	
     	Collection<Game> games;
-    	
-    	//games = this.gameService.findAll();
-    	
+    	    	
     	Pageable paging= PageRequest.of(page-1, 12);
     	
     	Page<Game> pGame = gameService.findAllPagining(paging);
     	
     	games = pGame.getContent();
     	
+    	
+    	mav.addObject("games", games);
+    	mav.addObject("currentPage", pGame.getNumber()+1);
+    	mav.addObject("totalItems", pGame.getTotalElements());
+    	mav.addObject("totalPages", pGame.getTotalPages());
+    	System.out.println(pGame.getTotalPages());
+    	mav.addObject("pageSize", 12);
+
+		return mav;
+    }
+    
+    @GetMapping("/games/listByDeveloper")
+    public ModelAndView listByDeveloper(@RequestParam int developerId, @RequestParam(defaultValue = "1") int page) {
+    	ModelAndView mav;
+    	
+    	mav = new ModelAndView("/games/list");
+    	
+    	Collection<Game> games;
+    	Developer developer = developerService.findById(developerId);
+    	
+    	Pageable paging= PageRequest.of(page-1, 12);
+    	
+    	Page<Game> pGame = gameRepository.findByDeveloper(developerId, paging) ;
+    	
+    	games = pGame.getContent();
+    	
+    	mav.addObject("developer", developer);
     	mav.addObject("games", games);
     	mav.addObject("currentPage", pGame.getNumber()+1);
     	mav.addObject("totalItems", pGame.getTotalElements());
     	mav.addObject("totalPages", pGame.getTotalPages());
     	mav.addObject("pageSize", 12);
-
-		return mav;
+    	
+    	return mav;
+    	
+    }
+    
+    @GetMapping("/games/listByGenre")
+    public ModelAndView listByGenre(@RequestParam int genreId, @RequestParam(defaultValue = "1") int page) {
+    	ModelAndView mav;
+    	
+    	mav = new ModelAndView("/games/list");
+    	
+    	Collection<Game> games;
+    	Genre genre = genreService.findById(genreId);
+    	
+    	Pageable paging= PageRequest.of(page-1, 12);
+    	
+    	Page<Game> pGame = gameRepository.findByGenrePage(genreId, paging) ;
+    	
+    	games = pGame.getContent();
+    	
+    	mav.addObject("genre", genre);
+    	mav.addObject("games", games);
+    	mav.addObject("currentPage", pGame.getNumber()+1);
+    	mav.addObject("totalItems", pGame.getTotalElements());
+    	mav.addObject("totalPages", pGame.getTotalPages());
+    	mav.addObject("pageSize", 12);
+    	
+    	return mav;
+    	
+    }
+    
+    @GetMapping("/games/listByPlatform")
+    public ModelAndView listByPlatform(@RequestParam int platformId, @RequestParam(defaultValue = "1") int page) {
+    	ModelAndView mav;
+    	
+    	mav = new ModelAndView("/games/list");
+    	
+    	Collection<Game> games;
+    	Platform platform = this.platformService.findById(platformId);
+    	
+    	Pageable paging= PageRequest.of(page-1, 12);
+    	
+    	Page<Game> pGame = gameRepository.findByPlatform(platformId, paging) ;
+    	
+    	games = pGame.getContent();
+    	
+    	mav.addObject("platform", platform);
+    	mav.addObject("games", games);
+    	mav.addObject("currentPage", pGame.getNumber()+1);
+    	mav.addObject("totalItems", pGame.getTotalElements());
+    	mav.addObject("totalPages", pGame.getTotalPages());
+    	mav.addObject("pageSize", 12);
+    	
+    	return mav;
+    	
     }
     
     

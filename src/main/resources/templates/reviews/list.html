@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<head>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+
+<body class="color-body">
+	<header th:replace="~{master-page/header}"></header>
+	<div class="container text-center" style="background-color: #1C2833; color:aliceblue; max-width: 1500px;">
+		<div class="row">
+			<div class="col">
+				<img th:src="${game.image}" style="height: 150px; width: 300px; margin-top: 50px;">
+			</div>
+			<div class="col-6">
+				<h1 style="margin-top: 50px; text-align: left;" th:text="${'Reviews: ' + game.title}"></h1>
+				<div th:each="review : ${reviews}">
+					<div style="text-align: left; border-bottom: 0.2px solid grey;">
+						<table style="width: 100%;">
+							<tr>
+								<td>
+									<a class="link-success " th:text="${review.progress.user.username}"
+										th:href="@{user(id=${review.progress.user.id})}"></a>
+								</td>
+								<td style="text-align: right;">
+									<p th:text="${review.progress.rating + '/5'}"></p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p th:text="${review.text}"></p>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				
+				<nav aria-label="Pagination" th:if="${totalPages > 0}" style="margin-top: 50px;">
+					<ul class="pagination justify-content-center">
+						<li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+							<a th:replace="~{fragments/pagingReview :: paging(1, '<<', 'First Page',${game.id})}"></a>
+						</li>
+						<li class="page-item font-weight-bold" th:classappend="${currentPage == 1} ? 'disabled'">
+							<a
+								th:replace="~{fragments/pagingReview :: paging(${currentPage - 1}, 'Prev', 'Previous Page',${game.id})}"></a>
+						</li>
+						<li class="page-item disabled" th:if="${currentPage - 2 > 1}">
+							<a class="page-link" href="#">...</a>
+						</li>
+						<li class="page-item" th:classappend="${page == currentPage} ? 'active'"
+							th:each="page : ${#numbers.sequence(currentPage > 2 ? currentPage - 2 : 1, currentPage + 2 < totalPages ? currentPage + 2 : totalPages)}">
+							<a th:replace="~{fragments/pagingReview :: paging(${page}, ${page}, 'Page ' + ${page},${game.id})}"></a>
+						</li>
+						<li class="page-item disabled" th:if="${currentPage + 2 < totalPages}">
+							<a class="page-link" href="#">...</a>
+						</li>
+						<li class="page-item font-weight-bold"
+							th:classappend="${currentPage == totalPages} ? 'disabled'">
+							<a th:replace="~{fragments/pagingReview :: paging(${currentPage + 1},'Next', 'Next Page',${game.id})}"></a>
+						</li>
+						<li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+							<a th:replace="~{fragments/pagingReview :: paging(${totalPages}, '>>', 'Last Page',${game.id})}"></a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+			<div class="col"></div>
+		</div>
+	</div>
+	<footer th:replace="~{master-page/footer}"></footer>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
 import jakarta.persistence.*;
@@ -18,7 +19,7 @@ public class Game extends DomainEntity{
 	private String slug;
 	private String description;
 	private String image;
-	private Long rate;
+	private Double rate;
 	private Date release_date;
 	private Collection<Progress> progress;
 	private Collection<Developer> developers;
@@ -47,14 +48,15 @@ public class Game extends DomainEntity{
 		return release_date;
 	}
 	
-	public Long getRate() {
+	@Range(min= 0, max=5)
+	public Double getRate() {
 		return rate;
 	}
 	
 	// ---------- Setters ----------
 	
 	
-	public void setRate(Long rate) {
+	public void setRate(Double rate) {
 		this.rate = rate;
 	}
 	public void setTitle(String title) {

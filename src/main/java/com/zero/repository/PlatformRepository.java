@@ -14,4 +14,7 @@ public interface PlatformRepository extends JpaRepository<Platform,Integer>{
 	
 	@Query("select p from Platform p where p.idRAWG = ?1")
 	Platform findByRAWGId (int idRAWG);
+	
+	@Query("select p from Platform p where p.id = ?1")
+	Platform findById(int id);
 }

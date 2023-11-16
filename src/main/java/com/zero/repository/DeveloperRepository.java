@@ -17,4 +17,7 @@ public interface DeveloperRepository extends JpaRepository<Developer,Integer>{
 	Developer findBySlug (String slugDeveloper);
 	
 	Page<Developer> findAll(Pageable pageable);
+	
+	@Query("select d from Developer d where d.id = ?1")
+	Developer findById(int id);
 }

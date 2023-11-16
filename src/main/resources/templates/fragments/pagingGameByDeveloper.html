@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+<a th:fragment="paging(pageNum, label, tooltip, developerId)" class="page-link"
+  th:href="@{'/games/listByDeveloper?' + 'developerId=' + ${developerId} + '&page=' + ${pageNum}}"
+  th:title="${tooltip}" rel="tooltip">
+  [[${label}]]
+</a>

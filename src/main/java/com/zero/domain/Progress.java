@@ -24,7 +24,7 @@ public class Progress extends DomainEntity{
 	public String getStatus() {
 		return status;
 	}
-	@Range(min= 1, max=10)
+	@Range(min= 0, max=5)
 	public Double getRating() {
 		return rating;
 	}

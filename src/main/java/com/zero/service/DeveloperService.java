@@ -60,6 +60,13 @@ public class DeveloperService {
 		return pDeveloper;
 	}
 	
+	public Developer findById(int id) {
+		Developer result;
+		
+		result = this.developerRepository.findById(id);
+		
+		return result;
+	}
 	
 	//Others method
 	

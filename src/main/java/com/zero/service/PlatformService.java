@@ -41,6 +41,14 @@ public class PlatformService {
 	
 	//Finds method
 	
+	public Platform findById(int id) {
+		Platform result;
+		
+		result= this.platformRepository.findById(id);
+		
+		return result;
+	}
+	
 	//Others method
 	
 	public void getAPIPlatforms() {

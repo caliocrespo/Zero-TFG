@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+<a th:fragment="paging(pageNum, label, tooltip, platformId)" class="page-link"
+  th:href="@{'/games/listByPlatform?' + 'platformId=' + ${platformId} + '&page=' + ${pageNum}}"
+  th:title="${tooltip}" rel="tooltip">
+  [[${label}]]
+</a>

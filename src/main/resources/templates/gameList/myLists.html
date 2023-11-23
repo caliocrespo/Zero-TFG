@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body class="color-body">
+	<header th:replace="~{master-page/header}"></header>
+	<div class="container text-center">
+		<table style="width: 100%;">
+			<tr style="border-bottom: 1px solid white;">
+				<td style="text-align: left; width: 50%;"><p style="font-size: 30px;">Lists</p></td>
+				
+				<td style="text-align: right; width: 200px;">
+					<a href="/newList">
+						<button type="button" class="btn btn-success" style="margin-right: 10px; width: 100%;">Create new List</button></td>
+					</a>
+			</tr>
+			<div th:each="gameList : ${gameLists}">
+				
+			
+				<tr style="width: 100%; height: 200px; border-bottom: 1px solid grey; text-align: left; vertical-align: top;">
+				<td style="width: 90%;">
+					<a th:href="@{gameList(id=${gameList.id})}" 
+					style="display: inline-block; width: 100%; height: 100%; color: inherit; text-decoration: inherit;">
+						
+					<p th:text="${gameList.title}" class="fw-bold fs-2" style="display: inline-block;"></p>
+					<img src="/img/lock.png" th:if="${gameList.shared == false}" style="width: 25px; display: inline-block; margin-top: -15px;">
+					<p th:text="${gameList.description}" class="descriptionGameList"></p>
+					
+					<div th:each="game, iterationStatus : ${gameList.games}" style="display:inline; margin-right: 10px;">
+						<th:block th:if="${iterationStatus.index < 8}">
+							<img th:src="${game.image}" style="width: 150px; height: 75px;">
+						</th:block>
+					</div></a>
+			</td></tr>
+			</div>
+		</table>
+		
+	</div>
+	
+	
+	<footer th:replace="~{master-page/footer}"></footer>	
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+
+</html>

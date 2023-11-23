@@ -38,8 +38,6 @@ function setStars() {
     document.querySelector(".rating span").textContent = rating;
 }
 
-// Obtener el rating del elemento con id "rating"
-
 setStars();
 
 

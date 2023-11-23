@@ -1,5 +1,6 @@
 package com.zero.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import jakarta.persistence.*;
@@ -26,6 +27,7 @@ public class GameList extends DomainEntity{
 	public String getTitle() {
 		return title;
 	}
+	@Column(length=65555)
 	public String getDescription() {
 		return description;
 	}
@@ -57,6 +59,17 @@ public class GameList extends DomainEntity{
 	}
 	public void setGames(Collection<Game> games) {
 		this.games = games;
+	}
+	
+	
+	
+	//------------Other-----------
+	
+	public void addGame(Game game) {
+		if(this.games == null) {
+			games = new ArrayList<>();
+		}
+		this.games.add(game);
 	}
 	
 

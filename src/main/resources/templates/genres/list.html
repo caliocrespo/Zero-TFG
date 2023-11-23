@@ -12,20 +12,24 @@
 	<div class="d-flex justify-content-center" style="margin-top: 20px;">
 		<div class="row ">
 			<div class="col-xl-4" th:each="genre : ${genres}">
-				<div class="card" style="width: 400px; height: 480px; margin-bottom: 50px;">
+				<div class="card" style="width: 400px; height: 380px; margin-bottom: 50px;">
 					<div class="contain" style="width: 398px; height: 200px;">	
 						<img th:src="${genre.games[4].image}" class="card-img-top" alt="Not found"
 							 style="filter: grayscale(90%) blur(1.5px); width: 100%; height: 100%; display: block;">
 							<div class="centered" th:text="${genre.name}"></div>
 					</div>
 					<div class="card-body bg-dark text-light">
-						<h5 class="card-title" th:text="${genre.name}"></h5>
-						<span class="card-text text-justify" th:text="${genre.description}">
-							<p></p>
-						</span>
-						<div class="text-center" style="margin-top: 10px;">
+						<!--<h5 class="card-title" th:text="${genre.name}"></h5>-->
+						<span class="card-text text-justify" th:utext="${genre.description}"></span>
+						<table style="width: 100%; border-top: 1px solid grey;  border-bottom: 1px solid grey;">
+							<tr><td style="text-align: left;">
+								<img src="/img/console.png" style="height: 25px;"></td>
+							<td style="text-align: right;"><span style="margin-right: 10px;" th:text="${genre.games.size()}"></span>
+							</td></tr>
+						</table>
+						<!--<div class="text-center" style="margin-top: 10px;">
 							<a href="#" class="btn btn-success align-center">Show Games</a>
-						</div>
+						</div>-->
 					</div>
 				</div>
 			</div>

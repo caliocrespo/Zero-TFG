@@ -19,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.zero.domain.Developer;
 import com.zero.domain.Game;
+import com.zero.domain.GameList;
 import com.zero.domain.Genre;
 import com.zero.domain.Platform;
 import com.zero.domain.Progress;
@@ -27,6 +28,7 @@ import com.zero.repository.GameRepository;
 import com.zero.repository.GenreRepository;
 import com.zero.repository.ReviewRepository;
 import com.zero.service.DeveloperService;
+import com.zero.service.GameListService;
 import com.zero.service.GameService;
 import com.zero.service.GenreService;
 import com.zero.service.PlatformService;
@@ -54,6 +56,8 @@ public class GameController {
 	private PlatformService platformService;
 	@Autowired
 	private DeveloperService developerService;
+	@Autowired
+	private GameListService gameListService;
 
 
     //@PostConstruct
@@ -99,7 +103,7 @@ public class GameController {
     	
     	String username = SecurityContextHolder.getContext().getAuthentication().getName();
     	Progress ownProgress = progressService.findByGameAndUser(id, username);
-    	
+    	Collection<GameList> gameLists = gameListService.findByUsername(username);
     	if(ownProgress!=null) {
     		mav.addObject("status", ownProgress.getStatus());
     		mav.addObject("ownRating", ownProgress.getRating());
@@ -112,6 +116,7 @@ public class GameController {
     	Collection<Platform> platforms = game.getPlatforms();
     	Collection<Genre> genres=game.getGenres();
     	
+    	mav.addObject("gameLists", gameLists);
     	mav.addObject("game", game);
     	mav.addObject("platforms", platforms);
     	mav.addObject("genres", genres);
@@ -137,7 +142,6 @@ public class GameController {
     	mav.addObject("currentPage", pGame.getNumber()+1);
     	mav.addObject("totalItems", pGame.getTotalElements());
     	mav.addObject("totalPages", pGame.getTotalPages());
-    	System.out.println(pGame.getTotalPages());
     	mav.addObject("pageSize", 12);
 
 		return mav;

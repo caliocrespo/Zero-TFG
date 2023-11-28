@@ -26,6 +26,7 @@ import com.zero.domain.Progress;
 import com.zero.domain.Review;
 import com.zero.repository.GameRepository;
 import com.zero.repository.GenreRepository;
+import com.zero.repository.ProgressRepository;
 import com.zero.repository.ReviewRepository;
 import com.zero.service.DeveloperService;
 import com.zero.service.GameListService;
@@ -58,6 +59,8 @@ public class GameController {
 	private DeveloperService developerService;
 	@Autowired
 	private GameListService gameListService;
+	@Autowired
+	private ProgressRepository progressRepository;
 
 
     //@PostConstruct
@@ -116,7 +119,11 @@ public class GameController {
     	Collection<Platform> platforms = game.getPlatforms();
     	Collection<Genre> genres=game.getGenres();
     	
-    	mav.addObject("gameLists", gameLists);
+    	if(!gameLists.isEmpty()) {
+    		mav.addObject("gameLists", gameLists);
+    	}
+    	
+    	
     	mav.addObject("game", game);
     	mav.addObject("platforms", platforms);
     	mav.addObject("genres", genres);
@@ -222,7 +229,51 @@ public class GameController {
     	mav.addObject("pageSize", 12);
     	
     	return mav;
+    }
+    
+    @GetMapping("/games/listByGameList")
+    public ModelAndView listByGameList(@RequestParam int gameListId, @RequestParam(defaultValue = "1") int page) {
+    	ModelAndView mav;
     	
+    	mav = new ModelAndView("/games/list");
+    	
+    	Collection<Game> games;
+    	GameList gameList = this.gameListService.findById(gameListId);
+    	
+    	
+    	games = gameList.getGames();
+    	
+    	
+    	
+    	mav.addObject("gameList", gameList);
+    	mav.addObject("games", games);
+    	
+    	return mav;
+    }
+    
+    @GetMapping("/myGames")
+    public ModelAndView myGames(@RequestParam(defaultValue = "1") int page) {
+    	ModelAndView mav;
+    	
+    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    	
+    	mav = new ModelAndView("/games/myGames");
+    	
+    	Collection<Progress> progressList;
+    	
+    	Pageable paging= PageRequest.of(page-1, 30);
+    	
+    	Page<Progress> progressPage = progressRepository.findByUser(username, paging);
+    	
+    	progressList = progressPage.getContent();
+    	
+    	mav.addObject("progressList", progressList);
+    	mav.addObject("currentPage", progressPage.getNumber()+1);
+    	mav.addObject("totalItems", progressPage.getTotalElements());
+    	mav.addObject("totalPages", progressPage.getTotalPages());
+    	mav.addObject("pageSize", 30);
+    	
+    	return mav;
     }
     
     

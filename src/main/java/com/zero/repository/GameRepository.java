@@ -27,5 +27,8 @@ public interface GameRepository extends JpaRepository<Game,Integer>{
 	
 	@Query("select  g from Game g JOIN g.genres genre where genre.id= ?1")
 	Page<Game> findByGenrePage(int genreId, Pageable pageable);
+	
+	@Query("select distinct g from  Game g JOIN FETCH g.progress p where p.user.username = ?1")
+	Page<Game> findByUser(String username, Pageable pageable);
 		
 }

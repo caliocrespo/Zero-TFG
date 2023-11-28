@@ -111,15 +111,22 @@ public class GameListController {
 	
 	@PostMapping("/gameList/saveGame")
 	public ModelAndView saveGame(@RequestParam(name = "gameListIds", required = false) List<Integer> selectedGameListIds, int gameId) {
-		GameList gameList;
-		Game game = gameService.findById(gameId);
-		for(int id : selectedGameListIds) {
-			gameList = gameListService.findById(id);
-			gameList.addGame(game);
-			gameListService.save(gameList);
+		
+		if(selectedGameListIds==null) {
+			return new ModelAndView("redirect:/game?listFail&id=" + gameId);
+		}else {
+			GameList gameList;	
+			Game game = gameService.findById(gameId);
+			for(int id : selectedGameListIds) {
+				gameList = gameListService.findById(id);
+				gameList.addGame(game);
+				gameListService.save(gameList);
+			}
+			
+			return new ModelAndView("redirect:/game?listSuccess&id=" + gameId);
 		}
 		
-		return new ModelAndView("redirect:/game?id=" + gameId);
+		
 		
 	}
 	

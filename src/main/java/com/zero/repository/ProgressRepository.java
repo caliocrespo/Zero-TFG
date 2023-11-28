@@ -2,6 +2,8 @@ package com.zero.repository;
 
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -21,4 +23,7 @@ public interface ProgressRepository extends JpaRepository<Progress,Integer>{
 	
 	@Query("select p from Progress p where p.id = ?1")
 	Progress findById(int progressId);
+	
+	@Query("select p from Progress p where p.user.username = ?1")
+	Page<Progress> findByUser(String username, Pageable pageable); 
 }

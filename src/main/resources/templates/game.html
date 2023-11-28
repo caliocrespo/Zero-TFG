@@ -43,6 +43,12 @@
 				<div th:if=${param.progressSuccess}>
 					<div class="alert alert-success" style="margin-top: -74px;">Progress saved!</div>
 				</div>
+				<div th:if=${param.listSuccess}>
+					<div class="alert alert-success" style="margin-top: -74px;">Game added to list</div>
+				</div>
+				<div th:if=${param.listFail}>
+					<div class="alert alert-danger" style="margin-top: -74px;">You have not selected a list</div>
+				</div>
 				<div th:if=${param.reviewSuccess}>
 					<div class="alert alert-success" style="margin-top: -74px;">Review saved!</div>
 				</div>
@@ -101,16 +107,33 @@
 						</td>
 					</tr>
 					<tr>
-						<td><select id="selected" name="selected"
-								style="width: 100%; height: 100%; text-align: center; font-size: 25px; font-weight: 700; color: aliceblue;">
-								<option style="background-color: dodgerblue; font-weight: 700;">-SELECT-</option>
-								<option style="background-color: dodgerblue; font-weight: 700;"
-									th:selected="${status eq 'PLAYING'}">PLAYING</option>
-								<option style="background-color: green; font-weight: 700;"
-									th:selected="${status eq 'COMPLETED'}">COMPLETED</option>
-								<option style="background-color: orangered; font-weight: 700;"
-									th:selected="${status eq 'DROPPED'}">DROPPED</option>
-							</select></td>
+						<td style="display: flex; justify-content: space-between; width: 100%;">
+							<input type="hidden" id="ownStatus" name="ownStatus" th:value="${status}" />
+							<div style="text-align: center; margin-left: 20px;">
+								<img id="icon1" src="/img/icon1.png" alt="Empty Icon"
+									style="width: 50px; height: 50px; cursor: pointer;" onclick="rateGame(1)">
+								<div id="text1" style="color: grey; font-size: 12px; margin-top: 5px;">Playing</div>
+							</div>
+
+							<div style="text-align: center;">
+								<img id="icon2" src="/img/icon2.png" alt="Empty Icon"
+									style="width: 50px; height: 50px; cursor: pointer;" onclick="rateGame(2)">
+								<div id="text2" style="color: grey; font-size: 12px; margin-top: 5px;">Completed</div>
+							</div>
+
+							<div style="text-align: center;">
+								<img id="icon3" src="/img/icon3.png" alt="Empty Icon"
+									style="width: 50px; height: 50px; cursor: pointer;" onclick="rateGame(3)">
+								<div id="text3" style="color: grey; font-size: 12px; margin-top: 5px;">Dropped</div>
+							</div>
+
+							<div style="text-align: center; margin-right: 20px;">
+								<img id="icon4" src="/img/icon4.png" alt="Empty Icon"
+									style="width: 50px; height: 50px; cursor: pointer;" onclick="rateGame(4)">
+								<div id="text4" style="color: grey; font-size: 12px; margin-top: 5px;">Plan To Watch
+								</div>
+							</div>
+						</td>
 					</tr>
 					<tr th:if="${status != null}">
 						<td th:if="${ownReview == null || ownReview.text == null}"><a
@@ -122,6 +145,12 @@
 								class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover">See/Modify
 								your review
 							</a></td>
+					</tr>
+					<tr th:if="${gameLists != null}">
+						<td onclick="window.modal1.showModal();" style="display: block;"><a>Add game to list</a>
+
+						</td>
+
 					</tr>
 
 					<tr>
@@ -182,27 +211,6 @@
 						</tr>
 					</tbody>
 				</table>
-				<button onclick="window.modal1.showModal();">Abrir ventana modal</button>
-
-				<dialog id="modal1">
-					<form method="post" action="/gameList/saveGame">
-						<h3 th:text="${'Add `' + game.title + '` to your list'}" style="padding: 10px;"></h3>
-						<th:block th:each="gameList : ${gameLists}">
-							<label style="border-top: 1px solid grey; width: 100%; padding: 10px; display: block;">
-								<input type="checkbox" class="custom-checkbox" th:id="${'checkbox-' + gameList.id}"
-								name="gameListIds" th:value="${gameList.id}" th:checked="${gameList.games.contains(game)}"
-								th:disabled="${gameList.games.contains(game)}">
-								<label th:text="${gameList.title}" th:for="${'checkbox-' + gameList.id}"
-									style="font-size: 20px; color: lightgray;display: inline;"></label>
-							</label>
-							<input type="hidden" id="gameId" name="gameId" th:value="${game.id}" />
-						</th:block>
-						<section style="width: 100%; height: 75px; background-color: #151E27; text-align: right; ">
-							<button type="submit" class="btn btn-success" id="saveRate"
-								style="margin-top: 20px; margin-right: 10px;">Add</button>
-						</section>
-					</form>
-				</dialog>
 			</div>
 			<div class="col-6 col-md-5" style="text-align: justify; margin-top: 30px;" th:utext="${game.description}">
 			</div>
@@ -248,8 +256,9 @@
 							<table style="width: 100%;">
 								<tr>
 									<td>
-										<a class="link-success " th:text="${review.progress.user.username}"
-											th:href="@{user(id=${review.progress.user.id})}"></a>
+										<a class="link-success link-underline-opacity-0 link-underline-opacity-0-hover" 
+										th:text="${review.progress.user.username}"
+										th:href="@{user(id=${review.progress.user.id})}"></a>
 									</td>
 									<td style="text-align: right;">
 										<p th:utext="${review.progress.rating % 1 == 0 ? #numbers.formatInteger(review.progress.rating,1) :
@@ -270,7 +279,29 @@
 		</div>
 	</div>
 
+
 	</div>
+
+	<!-- External window to add a game to a list-->
+	<dialog id="modal1">
+		<form method="post" action="/gameList/saveGame">
+			<h3 th:text="${'Add `' + game.title + '` to your list'}" style="padding: 10px;"></h3>
+			<th:block th:each="gameList : ${gameLists}">
+				<label style="border-top: 1px solid grey; width: 100%; padding: 10px; display: block;">
+					<input type="checkbox" class="custom-checkbox" th:id="${'checkbox-' + gameList.id}"
+						name="gameListIds" th:value="${gameList.id}" th:checked="${gameList.games.contains(game)}"
+						th:disabled="${gameList.games.contains(game)}">
+					<label th:text="${gameList.title}" th:for="${'checkbox-' + gameList.id}"
+						style="font-size: 20px; color: lightgray;display: inline;"></label>
+				</label>
+				<input type="hidden" id="gameId" name="gameId" th:value="${game.id}" />
+			</th:block>
+			<section style="width: 100%; height: 75px; background-color: #151E27; text-align: right; ">
+				<button type="submit" class="btn btn-success" id="saveRate"
+					style="margin-top: 20px; margin-right: 10px;">Add</button>
+			</section>
+		</form>
+	</dialog>
 	<footer th:replace="~{master-page/footer}"></footer>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="js/script.js"></script>

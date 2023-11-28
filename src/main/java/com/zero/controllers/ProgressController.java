@@ -36,7 +36,7 @@ public class ProgressController {
 	
 	
 	@PostMapping("/progress/rated")
-    public ModelAndView ratedGame(String selected, String ownRating, int gameId) {
+    public ModelAndView ratedGame(String ownStatus, String ownRating, int gameId) {
 		
 		String name = SecurityContextHolder.getContext().getAuthentication().getName();
 		UserEntity user = userService.findByUsername(name);
@@ -48,8 +48,28 @@ public class ProgressController {
 			progress = progressService.create(game, user);
 		}
 		System.out.println(ownRating);
-		progress.setRating(Double.parseDouble(ownRating));
-		progress.setStatus(selected);
+		if(!ownRating.isEmpty())
+			progress.setRating(Double.parseDouble(ownRating));
+		else
+			progress.setRating(0.0);
+		
+		if(ownStatus.equals("")) {
+			progress.setStatus("Playing");
+		}else {
+		
+			int status= Integer.parseInt(ownStatus);
+			
+			switch(status) {
+				case 1: progress.setStatus("Playing");
+				break;
+				case 2: progress.setStatus("Completed");
+				break;
+				case 3: progress.setStatus("Dropped");
+				break;
+				case 4: progress.setStatus("Plan To Watch");
+				break;
+			}
+		}
 		
 		progressService.save(progress);
 		

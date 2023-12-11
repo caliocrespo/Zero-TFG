@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+<a th:fragment="paging(pageNum, label, tooltip, username)" class="page-link"
+  th:href="@{/{username}/lists(username=${username}, page = ${pageNum})}"
+  th:title="${tooltip}" rel="tooltip">
+  [[${label}]]
+</a>

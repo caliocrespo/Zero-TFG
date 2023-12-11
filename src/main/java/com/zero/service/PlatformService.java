@@ -3,6 +3,8 @@ package com.zero.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -49,6 +51,14 @@ public class PlatformService {
 		return result;
 	}
 	
+	public Page<Platform> findAllPagining(Pageable paging) {
+		Page<Platform> result;
+		
+		result = platformRepository.findAll(paging);
+		
+		return result;
+	}
+	
 	//Others method
 	
 	public void getAPIPlatforms() {
@@ -85,5 +95,7 @@ public class PlatformService {
 			}
 		}
 	}
+
+	
 
 }

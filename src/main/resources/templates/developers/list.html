@@ -12,21 +12,13 @@
 	<div class="d-flex justify-content-center" style="margin-top: 20px;">
 		<div class="row ">
 			<div class="col-xl-4" th:each="developer : ${developers}">
-				<div class="card" style="width: 400px; height: 480px; margin-bottom: 50px;">
-					<div class="contain" style="width: 398px; height: 200px;">
+				<div class="card" style="width: 400px; height: 200px; margin-bottom: 50px;">
+					<a style="width: 100%; height: 100%;" th:href="@{/games/listByDeveloper(developerId=${developer.id})}">
+					<div class="contain" style="width: 100%; height: 100%;">
 						<img th:src="${developer.games[4].image}" class="card-img-top" alt="Not found"
-							style="filter: grayscale(90%) blur(1.5px); width: 100%; height: 100%; display: block;">
+							style="filter: grayscale(50%) blur(1.5px); width: 100%; height: 100%; display: block;">
 						<div class="centered" th:text="${developer.name}"></div>
-					</div>
-					<div class="card-body bg-dark text-light">
-						<h5 class="card-title" th:text="${developer.name}"></h5>
-						<span class="card-text text-justify" th:text="${developer.description}">
-							<p></p>
-						</span>
-						<div class="text-center" style="margin-top: 10px;">
-							<a href="#" class="btn btn-success align-center">Show Games</a>
-						</div>
-					</div>
+					</div></a>
 				</div>
 			</div>
 		</div>

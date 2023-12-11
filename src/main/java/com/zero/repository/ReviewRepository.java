@@ -21,4 +21,7 @@ public interface ReviewRepository extends JpaRepository<Review,Integer>{
 	
 	@Query( value ="select r from Review r where r.progress.game.id = :gameId AND r.text IS NOT NULL")
 	Page<Review> findByGamePage(@Param("gameId") int gameId, Pageable pageable);
+	
+	@Query("select r from Review r where r.id = (select max(r2.id) from Review r2 where r2.progress.user.username = ?1)")
+	Review findLastReview(String username);
 }

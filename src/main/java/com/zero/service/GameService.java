@@ -69,6 +69,7 @@ public class GameService {
 		return result;
 	}
 
+
 	// Finds method
 
 	public Collection<Game> findAll() {
@@ -95,6 +96,14 @@ public class GameService {
 		game = gameRepository.findById(gameId);
 
 		return game;
+	}
+	
+	public Game findLastGame(String username) {
+		Game result;
+		
+		result = gameRepository.findLastGame(username);
+		
+		return result;
 	}
 
 	// Others method
@@ -232,5 +241,7 @@ public class GameService {
 			}
 		}
 	}
+
+	
 
 }

@@ -94,8 +94,13 @@ public class GameController {
     	}else {
     		mav.addObject("progressCount", Integer.toString(progress.size()));
     		mav.addObject("reviewsCount", Integer.toString(reviews.size()));
-    		String rating = String.format("%.1f",progressService.findRatingByGame(id));
-    		mav.addObject("rating", rating);
+    		if(progressService.findRatingByGame(id) != null) {
+    			String rating = String.format("%.1f",progressService.findRatingByGame(id));
+    			mav.addObject("rating", rating);
+    		}else {
+    			mav.addObject("rating", "-");
+    		}
+    		
 
     	}
     	
@@ -267,6 +272,8 @@ public class GameController {
     	
     	progressList = progressPage.getContent();
     	
+    	mav.addObject("status", "All");
+    	mav.addObject("username", username);
     	mav.addObject("progressList", progressList);
     	mav.addObject("currentPage", progressPage.getNumber()+1);
     	mav.addObject("totalItems", progressPage.getTotalElements());

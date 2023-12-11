@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<head>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+
+<body class="color-body">
+	<header th:replace="~{master-page/header}"></header>
+	<div class="container text-center" style="width: 800px;">
+		<img th:if="${lastGame != null}" th:src="${lastGame.game.image}" style="width: 100%; height: 300px;">
+		<div style="display: flex;" th:if="${user != null}">
+			<img src="/img/userGamer.png" style="height: 200px; width: 200px; margin-top: -50px;">
+			<div style="margin-top: 10px; text-align: left;">
+				<h4 th:text="${user.name + '&nbsp;' + user.lastName}" style="font-style: italic;"></h4>
+				<p th:text="${'@' + user.username}" style="color: grey;margin-top: -10px;"></p>
+				<div th:if="${user.country != ''}" style="display: flex; margin-top: -10px;">
+					<img src="/img/pin.png" style="width: 18px; height: 20px;">
+					<p th:text="${'&nbsp;' + user.country}"></p>
+				</div>
+			</div>
+		</div>
+		<section style="text-align: left;">
+			<h5 style="border-bottom: 1px solid grey;  margin-top: 20px;">LAST COMPLETED</h5>
+
+			<div style="display: inline-block;">
+				<th:block th:each="p, iterationStatus : ${last4}">
+					<th:block  th:if="${iterationStatus.index < 4}">
+						<a th:href="@{/game(id=${p.game.id})}"
+							style="width: 100%; height: 100%; text-decoration: inherit;">
+							<img th:src="${p.game.image}"
+								style="width: 180px; height: 100px; border: 1px solid white; margin-right: 10px;">
+						</a>
+					</th:block>
+				</th:block>
+
+			</div>
+		</section>
+
+		<section style="text-align: left; margin-top: 20px;" th:if="${lastReview != null}">
+			<h5 style="border-bottom: 1px solid green">LAST REVIEW</h5>
+			<div style="border-bottom: 1px solid green;">
+				<div style="text-align: left; font-style: italic; display: flex">
+					<p>Review of&nbsp;</p>
+					<a th:text="${lastReview.progress.game.title}" th:href="@{/game(id=${lastReview.progress.game.id})}"
+						class="link-success link-underline-opacity-0 link-underline-opacity-0-hover"></a>
+				</div>
+				<p th:text="${lastReview.text}"></p>
+
+			</div>
+		</section>
+
+		<table style="width: 100%; color: #DDD; margin-top: 20px;">
+			<tr style="border-bottom: 1px solid #DDD;">
+				<td style="width: 95%; text-align: left; ">
+					<a th:href="@{/{username}/games(username=${username})}" class="trLink">
+						<p style="margin-top: 5px; margin-bottom: 5px;">All</p>
+					</a>
+				</td>
+				<td style="text-align: right;" th:text="${#lists.size(progress)}"></td>
+			</tr>
+			<tr style="border-bottom: 1px solid #DDD;">
+				<td style="width: 95%; text-align: left; ">
+					<a th:href="@{/{username}/games(status=${'Playing'}, username=${username})}" class="trLink">
+						<p style="margin-top: 5px; margin-bottom: 5px;">Playing</p>
+					</a>
+				</td>
+				<td style="text-align: right;" th:text="${#lists.size(progress.?[status eq 'Playing'])}"></td>
+			</tr>
+			<tr style="border-bottom: 1px solid #DDD;">
+				<td style="width: 95%; text-align: left; ">
+					<a th:href="@{/{username}/games(status=${'Completed'}, username=${username})}" class="trLink">
+						<p style="margin-top: 5px; margin-bottom: 5px;">Completed</p>
+					</a>
+				</td>
+				<td style="text-align: right;" th:text="${#lists.size(progress.?[status eq 'Completed'])}"></td>
+			</tr>
+			<tr style="border-bottom: 1px solid #DDD;">
+				<td style="width: 95%; text-align: left; ">
+					<a th:href="@{/{username}/games(status=${'Dropped'}, username=${username})}" class="trLink">
+						<p style="margin-top: 5px; margin-bottom: 5px;">Dropped</p>
+					</a>
+				</td>
+				<td style="text-align: right;" th:text="${#lists.size(progress.?[status eq 'Dropped'])}"></td>
+			</tr>
+			<tr style="border-bottom: 1px solid #DDD;">
+				<td style="width: 95%; text-align: left; ">
+					<a th:href="@{/{username}/games(status=${'Plan to Watch'}, username=${username})}" class="trLink">
+						<p style="margin-top: 5px; margin-bottom: 5px;">Plant to Watch</p>
+					</a>
+				</td>
+				<td style="text-align: right;" th:text="${#lists.size(progress.?[status eq 'Plan to watch'])}"></td>
+			</tr>
+			<tr>
+				<td style="width: 95%; text-align: left; ">
+					<a th:href="@{/{username}/lists(username=${username})}" class="trLink">
+						<p style="margin-top: 5px; margin-bottom: 5px;">Lists</p>
+					</a>
+				</td>
+				<td style="text-align: right;">4</td>
+			</tr>
+		</table>
+	</div>
+	<footer th:replace="~{master-page/footer}"></footer>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

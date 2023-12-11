@@ -25,5 +25,20 @@ public interface ProgressRepository extends JpaRepository<Progress,Integer>{
 	Progress findById(int progressId);
 	
 	@Query("select p from Progress p where p.user.username = ?1")
+	Collection<Progress> findByUsername(String username);
+	
+	@Query("select p from Progress p where p.user.username = ?1")
 	Page<Progress> findByUser(String username, Pageable pageable); 
+	
+	@Query("select p from Progress p where p.user.username =?1 AND p.status = ?2")
+	Page<Progress> findByUserAndStatus(String username, String status, Pageable pageable);
+	
+	@Query("select p from Progress p where p.status = 'Completed' AND p.user.username = ?1 ORDER BY p.finish_date DESC")
+	Collection<Progress> findTop4CompletedByUser(String username);
+	
+	@Query("select p from Progress p where p.id = (select max(p2.id) from Progress p2 where p2.user.username = ?1)")
+	Progress findLastProgress(String username);
+	
+	@Query("select p from Progress p  where p.user.username = ?1 ORDER BY p.rating DESC")
+	Collection<Progress> findOrderProgress(String username);
 }

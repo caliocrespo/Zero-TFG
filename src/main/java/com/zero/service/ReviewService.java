@@ -81,6 +81,14 @@ public class ReviewService {
 		
 		return reviews;
 	}
+	
+	public Review findLastReview(String username) {
+		Review result;
+		
+		result = reviewRepository.findLastReview(username);
+		
+		return result;
+	}
 
 	
 	

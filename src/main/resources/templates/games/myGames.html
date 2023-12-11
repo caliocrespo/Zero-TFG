@@ -10,28 +10,64 @@
 	<header th:replace="~{master-page/header}"></header>
 
 	<div class="container text-center" style="max-width: 1000px;">
+		<div>
+			<ul class="nav nav-underline">
+				<li class="nav-item">
+					<a class="nav-link" aria-current="page" style="color: green;"
+					 th:href="@{/{username}/games(status=${'All'}, username=${username})}"
+					 th:class="${status == 'All'} ? 'nav-link active text-light border-success' : 'nav-link text-success'">All</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" aria-current="page"
+					 th:href="@{/{username}/games(status=${'Playing'}, username=${username})}"
+					 th:class="${status == 'Playing'} ? 'nav-link active text-light border-success' : 'nav-link text-success'">Playing</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" aria-current="page"
+					 th:href="@{/{username}/games(status=${'Completed'}, username=${username})}"
+					 th:class="${status == 'Completed'} ? 'nav-link active text-light border-success' : 'nav-link text-success'">Completed</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" aria-current="page"
+					 th:href="@{/{username}/games(status=${'Dropped'}, username=${username})}"
+					 th:class="${status == 'Dropped'} ? 'nav-link active text-light border-success' : 'nav-link text-success'">Dropped</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" aria-current="page"
+					 th:href="@{/{username}/games(status=${'Plan To Play'}, username=${username})}"
+					 th:class="${status eq 'Plan To Play'} ? 'nav-link active text-light border-success' : 'nav-link text-success'">Plan To Play</a>
+				</li>
+				
+			</ul>
+		</div>
+
+
 		<table class="table table-dark table-hover" style="vertical-align: middle; text-align: left;">
-			<thead>
+			<thead th:if="${progressList != null}">
 				<tr>
 					<th scope="col"></th>
 					<th scope="col">Title</th>
 					<th scope="col">Released</th>
-					<th scope="col" style="max-width: 30px;">Status</th>
 					<th scope="col">Rating</th>
 				</tr>
 			</thead>
 			<tbody>
 
 				<tr th:each="progress : ${progressList}">
-					<td ><img th:src="${progress.game.image}" style="width: 100px; height: 50px;"></td>
+					<td><img th:src="${progress.game.image}" style="width: 100px; height: 50px;"></td>
 					<td><a th:text="${progress.game.title}" th:href="@{/game(id=${progress.game.id})}"
-					class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover"
-					style="font-weight: bold; font-size: 20px;"></a> </td>
-					<td><p th:text="${#dates.format(progress.game.release_date,'yyyy')}"  style="color: darkgrey"></p></td>
+							class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover"
+							style="font-weight: bold; font-size: 20px;"></a> </td>
 					<td>
-						<p th:text="${progress.status}"></p>
+						<p th:text="${#dates.format(progress.game.release_date,'yyyy')}" style="color: darkgrey"></p>
 					</td>
-					<td><p th:text="${progress.rating}"></p></td>
+					<td>
+						<p th:utext="${progress.rating % 1 == 0 ? #numbers.formatInteger(progress.rating,1) :
+								#numbers.formatDecimal(progress.rating,1,1,'POINT')}"></p>
+				</td></tr>
+				<tr th:if="${progressList == null}"><td><div style="margin-top: 75px; margin-bottom: 75px;font-style: italic; text-align: center;">
+				<span>No games yet</span>
+			</div></td></tr>
 			</tbody>
 
 		</table>

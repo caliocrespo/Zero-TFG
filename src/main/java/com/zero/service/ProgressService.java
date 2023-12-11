@@ -50,8 +50,9 @@ public class ProgressService {
 		result = progressRepository.save(progress);
 		
 		Game game = progress.getGame();
-		
-		game.setRate(this.progressRepository.findRatingByGame(game.getId()));
+		if(!progress.getStatus().equals("Plan To Watch")) {
+			game.setRate(this.progressRepository.findRatingByGame(game.getId()));
+		}
 		
 		gameService.save(game);
 		
@@ -76,8 +77,8 @@ public class ProgressService {
 		return progress;
 	}
 	
-	public double findRatingByGame(int gameId) {
-		double avg_Rating;
+	public Double findRatingByGame(int gameId) {
+		Double avg_Rating;
 		
 		avg_Rating = progressRepository.findRatingByGame(gameId);
 		
@@ -90,6 +91,30 @@ public class ProgressService {
 		progress = progressRepository.findByGameAndUser(gameId, username);
 		
 		return progress;
+	}
+	
+	public Collection<Progress> findByUsername(String username){
+		Collection<Progress> result;
+		
+		result = progressRepository.findByUsername(username);
+		
+		return result;
+	}
+	
+	public Collection<Progress> findTop4CompletedByUser(String username){
+		Collection<Progress> result;
+		
+		result = progressRepository.findTop4CompletedByUser(username);
+		
+		return result;
+	}
+	
+	public Progress findLastProgress(String username) {
+		Progress result;
+		
+		result = progressRepository.findLastProgress(username);
+		
+		return result;
 	}
 	
 	//Others method

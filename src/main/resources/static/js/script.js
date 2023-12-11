@@ -63,25 +63,30 @@ function setStatus() {
 		const text = document.getElementById(`text${1}`);
 		icon.src = `/img/iconfilled${1}.png`;
 		text.style.color = 'white';
+		document.getElementById("ownStatus").value = 1;
 	} else if (status == "Completed") {
 		const icon = document.getElementById(`icon${2}`);
 		const text = document.getElementById(`text${2}`);
 		icon.src = `/img/iconfilled${2}.png`;
 		text.style.color = 'white';
+		document.getElementById("ownStatus").value = 2;
 	} else if (status == "Dropped") {
 		const icon = document.getElementById(`icon${3}`);
 		const text = document.getElementById(`text${3}`);
 		icon.src = `/img/iconfilled${3}.png`;
 		text.style.color = 'white';
-	} else if (status == "Plan To Watch") {
+		document.getElementById("ownStatus").value = 3;
+	} else if (status == "Plan To Play") {
 		const icon = document.getElementById(`icon${4}`);
 		const text = document.getElementById(`text${4}`);
 		icon.src = `/img/iconfilled${4}.png`;
 		text.style.color = 'white';
+		document.getElementById("ownStatus").value = 4;
 	}
 }
 
 setStatus();
+
 
 
 

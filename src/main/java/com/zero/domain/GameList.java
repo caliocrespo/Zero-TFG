@@ -72,5 +72,9 @@ public class GameList extends DomainEntity{
 		this.games.add(game);
 	}
 	
+	public void deleteGame(Game game) {
+		this.games.remove(game);
+	}
+	
 
 }

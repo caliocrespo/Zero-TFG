@@ -9,21 +9,21 @@
 <body class="color-body">
 	<header th:replace="~{master-page/header}"></header>
 
-	<div class="container text-center">
+	<div class="container text-center" style="width: 1000px; margin-bottom: -16px;">
 		<div style="text-align: left; width: 90%; margin-left: 20px; font-size: 30px; border-bottom: 1px solid white;
 		margin-bottom: 10px;">
 			<p style="margin-bottom: -3px;">New List</p>
 		</div>
 		<div style="text-align: left; margin-left: 20px;">
-			<form method="post" action="/gameList/save">
+			<form method="post" th:action="${exist ? '/gameList/save' : 'gameList/create'}">
 				<div class="mb-3">
 					<label for="name" class="form-label">*Name</label>
 					<input type="text" class="form-control text-light bg-dark" id="name" name="name" required="required" 
-					style="width: 50%;">
+					th:value="${exist ? gameList.title : ''}"  style="width: 50%;">
 				</div>
 				<div class="mb-3">
 					<label for="shared" class="form-label">Who can view?</label>
-					<select id="shared" name="shared" class="form-select text-light bg-dark" style="width: 7%;">
+					<select id="shared" name="shared" class="form-select text-light bg-dark" style="width: 15%;">
 						<option>Public</option>
 						<option>Private</option>
 					</select>
@@ -31,13 +31,34 @@
 				<div class="mb-3">
 					<label for="description" class="form-label">Description</label>
 					<textarea type="text" class="form-control text-light bg-dark" id="description" name="description"
-					style="width: 70%; height: 400px;"></textarea>
+					th:text="${exist ? gameList.description : ''}" style="width: 90%; height: 400px;"></textarea>
 				</div>
+				<input th:if="${exist}" type="hidden" name="id" th:value="${gameList.id}" />
 				<div>
 					<button type="submit" class="btn btn-success">Save</button>
 					<button type="submit" class="btn btn-danger">Delete</button>
 				</div>
 			</form>
+		</div>
+		<div th:if="${exist}" style="margin-top: 20px;">
+			<h4>Games</h4>
+			
+			<table class="table table-dark table-hover" style="vertical-align: middle; text-align: left;">
+
+				<tr th:each="game : ${gameList.games}">
+					<td style="width: 10px;"><img th:src="${game.image}" style="width: 100px; height: 50px;"></td>
+					<td><a th:text="${game.title}" th:href="@{/game(id=${game.id})}"
+							class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover"
+							style="font-weight: bold; font-size: 20px;"></a> </td>
+					<td style="width: 10%; text-align: right;">
+					<a style="width: 100%; height: 100%; margin-right: 20px; color: inherit; text-decoration: inherit;"
+					th:href="@{/gameList/deleteGame(listId=${gameList.id}, gameId=${game.id})}">
+						<img src="/img/cross.png" style="width: 20px; height: 20px;">	
+					</a></td>
+				</tr>
+
+		</table>
+			
 		</div>
 	</div>
 

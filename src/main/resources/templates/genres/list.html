@@ -12,6 +12,7 @@
 	<div class="d-flex justify-content-center" style="margin-top: 20px;">
 		<div class="row ">
 			<div class="col-xl-4" th:each="genre : ${genres}">
+				<a th:href="@{/games/listByGenre(genreId=${genre.id})}" style="width: 100%; height: 100%; text-decoration: inherit;">
 				<div class="card" style="width: 400px; height: 380px; margin-bottom: 50px;">
 					<div class="contain" style="width: 398px; height: 200px;">	
 						<img th:src="${genre.games[4].image}" class="card-img-top" alt="Not found"
@@ -31,7 +32,7 @@
 							<a href="#" class="btn btn-success align-center">Show Games</a>
 						</div>-->
 					</div>
-				</div>
+				</div></a>
 			</div>
 		</div>
 

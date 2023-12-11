@@ -30,5 +30,7 @@ public interface GameRepository extends JpaRepository<Game,Integer>{
 	
 	@Query("select distinct g from  Game g JOIN FETCH g.progress p where p.user.username = ?1")
 	Page<Game> findByUser(String username, Pageable pageable);
-		
+
+	@Query("select p.game from Progress p where p.id = (select max(p2.id) from Progress p2 where p2.user.username = ?1)")
+	Game findLastGame (String username);
 }

@@ -130,7 +130,7 @@
 							<div style="text-align: center; margin-right: 20px;">
 								<img id="icon4" src="/img/icon4.png" alt="Empty Icon"
 									style="width: 50px; height: 50px; cursor: pointer;" onclick="rateGame(4)">
-								<div id="text4" style="color: grey; font-size: 12px; margin-top: 5px;">Plan To Watch
+								<div id="text4" style="color: grey; font-size: 12px; margin-top: 5px;">Plan To Play
 								</div>
 							</div>
 						</td>
@@ -258,11 +258,11 @@
 									<td>
 										<a class="link-success link-underline-opacity-0 link-underline-opacity-0-hover" 
 										th:text="${review.progress.user.username}"
-										th:href="@{user(id=${review.progress.user.id})}"></a>
+										th:href="@{/{username}(username=${review.progress.user.username})}"></a>
 									</td>
 									<td style="text-align: right;">
 										<p th:utext="${review.progress.rating % 1 == 0 ? #numbers.formatInteger(review.progress.rating,1) :
-								#numbers.formatDecimal(review.progress.rating,1,1,'POINT') + '/5'}"></p>
+								#numbers.formatDecimal(review.progress.rating,1,1,'POINT')}"></p>
 									</td>
 								</tr>
 								<tr>

@@ -20,11 +20,12 @@
 						<table style="width: 100%;">
 							<tr>
 								<td>
-									<a class="link-success " th:text="${review.progress.user.username}"
-										th:href="@{user(id=${review.progress.user.id})}"></a>
+									<a class="link-success link-underline-opacity-0 link-underline-opacity-0-hover" th:text="${review.progress.user.username}"
+										th:href="@{/{username}(username=${review.progress.user.username})}">"></a>
 								</td>
 								<td style="text-align: right;">
-									<p th:text="${review.progress.rating + '/5'}"></p>
+									<p th:utext="${review.progress.rating % 1 == 0 ? #numbers.formatInteger(review.progress.rating,1) :
+								#numbers.formatDecimal(review.progress.rating,1,1,'POINT')}" style="margin-bottom: -5px;"></p>
 								</td>
 							</tr>
 							<tr>

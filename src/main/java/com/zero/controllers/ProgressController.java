@@ -1,5 +1,8 @@
 package com.zero.controllers;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,13 +63,18 @@ public class ProgressController {
 			int status= Integer.parseInt(ownStatus);
 			
 			switch(status) {
-				case 1: progress.setStatus("Playing");
+				case 1: progress.setStatus("Playing"); progress.setFinish_date(null);
 				break;
-				case 2: progress.setStatus("Completed");
+				case 2:
+					progress.setStatus("Completed");
+					if(progress.getFinish_date() == null) {
+						Date currentDate = new Date();
+					    progress.setFinish_date(currentDate);
+					}
 				break;
-				case 3: progress.setStatus("Dropped");
+				case 3: progress.setStatus("Dropped"); progress.setFinish_date(null);
 				break;
-				case 4: progress.setStatus("Plan To Watch");
+				case 4: progress.setStatus("Plan To Play"); progress.setFinish_date(null);
 				break;
 			}
 		}

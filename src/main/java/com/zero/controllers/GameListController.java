@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,8 +62,10 @@ public class GameListController {
 		gameLists = pList.getContent();
 		
 		mav = new ModelAndView("gameList/myLists");
-		System.out.println(gameLists.size());
-		mav.addObject("gameLists", gameLists);
+		if(gameLists.size() > 0) {
+			mav.addObject("gameLists", gameLists);
+		}
+		mav.addObject("selfUser", "yes");
 		mav.addObject("currentPage", pList.getNumber()+1);
     	mav.addObject("totalItems", pList.getTotalElements());
     	mav.addObject("totalPages", pList.getTotalPages());
@@ -71,18 +74,73 @@ public class GameListController {
 		return mav;
 	}
 	
+	@GetMapping("/{username}/lists")
+	public ModelAndView showList(@PathVariable String username, @RequestParam(defaultValue = "1") int page) {
+		ModelAndView mav;
+		
+		Collection<GameList> gameLists;
+		
+		Pageable paging= PageRequest.of(page-1, 5);
+		
+		Page<GameList> pList = this.gameListRepository.findByUsernamePublic(username, paging);
+		
+		gameLists = pList.getContent();
+		
+		mav = new ModelAndView("gameList/myLists");
+		
+		mav.addObject("username", username);
+		mav.addObject("otherUser", "yes");
+		if(gameLists.size() > 0) {
+			mav.addObject("gameLists", gameLists);
+		}
+		mav.addObject("currentPage", pList.getNumber()+1);
+    	mav.addObject("totalItems", pList.getTotalElements());
+    	mav.addObject("totalPages", pList.getTotalPages());
+    	mav.addObject("pageSize", 5);		
+		
+		return mav;
+	}
+	
+	@GetMapping("/gameList/list")
+	public ModelAndView list(@RequestParam(defaultValue = "1") int page) {
+		ModelAndView mav;
+		
+		Collection<GameList> gameLists;
+		
+		Pageable paging= PageRequest.of(page-1, 10);
+		
+		Page<GameList> pList = this.gameListRepository.findByAllPage(paging);
+		
+		gameLists = pList.getContent();
+		
+		mav = new ModelAndView("gameList/myLists");
+		
+		mav.addObject("list", "yes");
+		if(gameLists.size() > 0) {
+			mav.addObject("gameLists", gameLists);
+		}
+		mav.addObject("currentPage", pList.getNumber()+1);
+    	mav.addObject("totalItems", pList.getTotalElements());
+    	mav.addObject("totalPages", pList.getTotalPages());
+    	mav.addObject("pageSize", 10);		
+		
+		return mav;
+		
+	}
+	
 	
 	@GetMapping("/newList")
 	public ModelAndView newList() {
 		ModelAndView mav;
 		
 		mav = new ModelAndView("/gameList/newList");
+		mav.addObject("exist", false);
 		
 		return mav;
 	}
 	
-	@PostMapping("/gameList/save")
-	public ModelAndView save(String name, String shared, String description) {
+	@PostMapping("/gameList/create")
+	public ModelAndView create(String name, String shared, String description) {
 	
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		
@@ -109,6 +167,32 @@ public class GameListController {
 		return new ModelAndView("redirect:/myLists");
 	}
 	
+	@PostMapping("/gameList/save")
+	public ModelAndView save(String name, String shared, String description, int id) {
+		
+		GameList gameList = gameListService.findById(id);
+		
+		gameList.setTitle(name);
+		
+		if(shared.equals("Public")) {
+			gameList.setShared(true);
+		}
+		else {
+			gameList.setShared(false);
+		}
+		System.out.println(shared);
+		
+		if(description != null) {
+			gameList.setDescription(description);
+		}else {
+			gameList.setDescription("");
+		}
+		
+		this.gameListService.save(gameList);
+		
+		return new ModelAndView("redirect:/myLists");
+	}
+	
 	@PostMapping("/gameList/saveGame")
 	public ModelAndView saveGame(@RequestParam(name = "gameListIds", required = false) List<Integer> selectedGameListIds, int gameId) {
 		
@@ -125,12 +209,43 @@ public class GameListController {
 			
 			return new ModelAndView("redirect:/game?listSuccess&id=" + gameId);
 		}
-		
-		
-		
 	}
 	
-	public boolean gameInGameList(Game game, GameList gameList) {
-		return false;
+	@GetMapping("/gameList/delete")
+	public ModelAndView delete(@RequestParam int id) {
+		
+		GameList gameList = gameListService.findById(id);
+		
+		gameListService.delete(gameList);
+		
+		return new ModelAndView("redirect:/myLists");
 	}
+
+
+	@GetMapping("/gameList/edit")
+	public ModelAndView edit(@RequestParam int id) {
+		ModelAndView mav;
+		
+		GameList gameList = gameListService.findById(id);
+		
+		mav = new ModelAndView("/gameList/newList");
+		
+		mav.addObject("gameList", gameList);
+		mav.addObject("exist", true);
+		return mav;
+	}
+	
+	@GetMapping("/gameList/deleteGame")
+	public ModelAndView deleteGame(@RequestParam int listId, @RequestParam int gameId) {		
+		GameList gameList = gameListService.findById(listId);
+		
+		Game game = gameService.findById(gameId);
+		
+		gameListService.deleteGame(gameList, game);
+		
+		return new ModelAndView("redirect:/gameList/edit?id=" + listId);
+	}
+	
+	
+	
 }

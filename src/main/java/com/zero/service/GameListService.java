@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zero.domain.Game;
 import com.zero.domain.GameList;
 import com.zero.domain.UserEntity;
 import com.zero.repository.GameListRepository;
@@ -65,6 +66,19 @@ public class GameListService {
 		result = this.gameListRepository.findByUsername(username);
 		
 		return result;
+	}
+
+
+	public void delete(GameList gameList) {
+		this.gameListRepository.delete(gameList);
+		
+	}
+
+
+	public void deleteGame(GameList gameList, Game game) {
+		gameList.deleteGame(game);
+		
+		this.save(gameList);		
 	}
 	
 	//Others method

@@ -1,5 +1,6 @@
 package com.zero.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
+import com.zero.auxiliar.GameAPI;
 import com.zero.auxiliar.GenreAPI;
 import com.zero.auxiliar.GenreList;
 import com.zero.repository.GenreRepository;
@@ -95,6 +97,28 @@ public class GenreService {
 	            }
 	        }
 	    }
+	}
+
+
+
+	public List<GenreAPI> genresApi() {
+		List<GenreAPI> genreAPI = new ArrayList<GenreAPI>();
+		
+		Collection<Genre> genres= this.genreRepository.findAll();
+		
+		for(Genre genre : genres) {
+			GenreAPI g = new GenreAPI();
+			
+			g.setId(genre.getId());
+			g.setName(genre.getName());
+			g.setDescription(genre.getDescription());
+			g.setSlug(genre.getSlug());
+			g.setGamesCount(genre.getGames().size());
+			
+			genreAPI.add(g);
+		}
+		
+		return genreAPI;
 	}
 
 	

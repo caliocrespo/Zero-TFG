@@ -99,7 +99,7 @@
 						<p style="margin-top: 5px; margin-bottom: 5px;">Lists</p>
 					</a>
 				</td>
-				<td style="text-align: right;">4</td>
+				<td style="text-align: right;" th:text="${#lists.size(gameLists) != null ?  #lists.size(gameLists) : 0}"></td>
 			</tr>
 		</table>
 	</div>

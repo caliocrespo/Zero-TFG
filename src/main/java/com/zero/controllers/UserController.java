@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zero.domain.Game;
+import com.zero.domain.GameList;
 import com.zero.domain.Progress;
 import com.zero.domain.Review;
 import com.zero.domain.UserEntity;
 import com.zero.repository.GameRepository;
 import com.zero.repository.ProgressRepository;
+import com.zero.service.GameListService;
 import com.zero.service.GameService;
 import com.zero.service.ProgressService;
 import com.zero.service.ReviewService;
@@ -37,6 +39,8 @@ public class UserController {
 	private ProgressRepository progressRepository;
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	private GameListService gameListService;
 	
 	@GetMapping("/{username}")
 	public ModelAndView myProfile(@PathVariable String username) {
@@ -46,13 +50,14 @@ public class UserController {
 		
 		Collection<Progress> last4 = progressService.findTop4CompletedByUser(username);
 		Collection<Progress> allProgress = progressService.findByUsername(username);
+		Collection<GameList> gameLists = gameListService.findByUsername(username);
 		Review lastReview = reviewService.findLastReview(username);
 		Progress lastGame = progressService.findLastProgress(username);
 		UserEntity user=userService.findByUsername(username);
 		mav = new ModelAndView("/user/profile");
 		
 		
-		
+		mav.addObject("gameLists", gameLists);
 		mav.addObject("lastGame", lastGame);
 		mav.addObject("user", user);
 		mav.addObject("last4", last4);

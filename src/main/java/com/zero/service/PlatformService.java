@@ -1,5 +1,7 @@
 package com.zero.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.zero.auxiliar.GenreAPI;
 import com.zero.auxiliar.GenreList;
 import com.zero.auxiliar.PlatformAPI;
 import com.zero.auxiliar.PlatformList;
+import com.zero.domain.Genre;
 import com.zero.domain.Platform;
 import com.zero.repository.PlatformRepository;
 
@@ -88,12 +92,32 @@ public class PlatformService {
 						addPlataform.setName(aux.getName());
 						addPlataform.setYear_start(aux.getYearStart());
 						addPlataform.setDescription(aux.getDescription());
+						addPlataform.setSlug(aux.getSlug());
 						
 						platformRepository.save(addPlataform);
 					}
 				}
 			}
 		}
+	}
+
+	public List<PlatformAPI> platformsApi() {
+		List<PlatformAPI> platformsAPI = new ArrayList<>();
+		
+		Collection<Platform> platforms = this.platformRepository.findAll();
+		
+		for(Platform platform : platforms) {
+			PlatformAPI p = new PlatformAPI();
+			
+			p.setId(platform.getId());
+			p.setName(platform.getName());
+			p.setDescription(platform.getDescription());
+			p.setGamesCount(platform.getGames().size());
+			
+			platformsAPI.add(p);
+		}
+		
+		return platformsAPI;
 	}
 
 	

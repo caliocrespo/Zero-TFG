@@ -185,6 +185,30 @@ public class GameController {
     	
     }
     
+    @GetMapping("/games/search")
+    public ModelAndView search(String searchText, @RequestParam(defaultValue = "1") int page) {
+    	ModelAndView mav;
+    	
+    	mav = new ModelAndView("/games/list");
+    	
+    	Collection<Game> games;
+    	
+    	Pageable paging = PageRequest.of(page-1, 12);
+    	
+    	Page<Game> pGame = gameRepository.searchGame(searchText, paging);
+    	
+    	games= pGame.getContent();
+    	
+    	mav.addObject("games", games);
+    	mav.addObject("currentPage", pGame.getNumber()+1);
+    	mav.addObject("totalItems", pGame.getTotalElements());
+    	mav.addObject("totalPages", pGame.getTotalPages());
+    	mav.addObject("pageSize", 12);
+    	mav.addObject("searchText", searchText);
+    	
+    	return mav;
+    }
+    
     @GetMapping("/games/listByGenre")
     public ModelAndView listByGenre(@RequestParam int genreId, @RequestParam(defaultValue = "1") int page) {
     	ModelAndView mav;

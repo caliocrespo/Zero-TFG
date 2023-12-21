@@ -12,12 +12,13 @@ import jakarta.validation.constraints.NotBlank;
 public class Platform extends DomainEntity{
 	private int idRAWG;
 	private String name;
+	private String slug;
 	private Integer year_start;
 	private String description;
 	private Collection<Game> games;
 	
 	
-	// ---------- Setters ----------
+	// ---------- Getters ----------
 	
 	public int getIdRAWG() {
 		return idRAWG;
@@ -28,6 +29,10 @@ public class Platform extends DomainEntity{
 	}
 	public Integer getYear_start() {
 		return year_start;
+	}
+	@NotBlank
+	public String getSlug() {
+		return slug;
 	}
 	@Column(length=65555)
 	public String getDescription() {
@@ -41,6 +46,9 @@ public class Platform extends DomainEntity{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public void setSlug(String slug) {
+		this.slug = slug;
 	}
 	public void setIdRAWG(int idRAWG) {
 		this.idRAWG = idRAWG;

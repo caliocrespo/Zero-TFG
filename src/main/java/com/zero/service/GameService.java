@@ -241,6 +241,31 @@ public class GameService {
 			}
 		}
 	}
+	
+	
+	public List<GameAPI> gamesApi(){
+		List<GameAPI> gamesAPI = new ArrayList<GameAPI>();
+		
+		Collection<Game> games= this.gameRepository.findAll();
+		
+		for(Game game : games) {
+			GameAPI g = new GameAPI();
+			
+			g.setId(game.getId());
+			g.setName(game.getTitle());
+			g.setDescription(game.getDescription());
+			g.setBackgroundImage(game.getImage());
+			g.setReleased(game.getRelease_date().toString());
+			g.setSlug(game.getSlug());
+			if(game.getRate() != null) {
+				g.setRating(game.getRate());
+			}
+			
+			gamesAPI.add(g);
+		}
+		
+		return gamesAPI;
+	}
 
 	
 

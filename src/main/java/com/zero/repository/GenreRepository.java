@@ -1,5 +1,7 @@
 package com.zero.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,6 +19,9 @@ public interface GenreRepository extends JpaRepository<Genre,Integer>{
 	
 	@Query("select g from Genre g where g.id = ?1")
 	Genre findById(int id);
+	
+	@Query("select g from Genre g")
+	List<Genre> findAll();
 	
 	Page<Genre> findAll(Pageable pageable);
 	

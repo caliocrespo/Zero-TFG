@@ -11,6 +11,7 @@
 	<h1 class="title-games" th:if="${genre != null}" th:text="${'Genre: ' + genre.name}"></h1>
 	<h1 class="title-games" th:if="${platform != null}" th:text="${'Platform: ' + platform.name}"></h1>
 	<h1 class="title-games" th:if="${developer != null}" th:text="${'Developer: ' + developer.name}"></h1>
+	<h1 class="title-games" th:if="${searchText != null}" th:text="${'Search: ' + searchText}"></h1>
 	
 
 		<div th:if="${gameList != null}" class="container text-center" 
@@ -48,7 +49,7 @@
 
 	</div>
 
-	<nav aria-label="Pagination" th:if="${totalPages > 0 && genre == null && developer == null && platform == null}">
+	<nav aria-label="Pagination" th:if="${totalPages > 0 && genre == null && developer == null && platform == null && searchText == null}">
 		<ul class="pagination justify-content-center">
 			<li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
 				<a th:replace="~{fragments/paging :: paging(1, '<<', 'First Page')}"></a>

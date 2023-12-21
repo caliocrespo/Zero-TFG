@@ -1,5 +1,8 @@
 package com.zero.repository;
 
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,8 +19,14 @@ public interface GameRepository extends JpaRepository<Game,Integer>{
 	
 	Page<Game> findAll(Pageable pageable);
 	
+	@Query("select g from Game g")
+	List<Game> findAll();
+	
 	@Query("select g from Game g where g.id = ?1")
 	Game findById(int gameId);
+	
+	@Query("select g from Game g where LOWER(g.title) LIKE LOWER(CONCAT(?1,'%'))")
+	Page<Game> searchGame(String title, Pageable paging);
 	
 	@Query("select g from Game g JOIN g.developers developer where developer.id = ?1")
 	Page<Game> findByDeveloper(int developerId, Pageable pageable);

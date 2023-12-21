@@ -1,5 +1,6 @@
 package com.zero.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -13,7 +14,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.zero.auxiliar.DeveloperAPI;
 import com.zero.auxiliar.DeveloperList;
+import com.zero.auxiliar.PlatformAPI;
 import com.zero.domain.Developer;
+import com.zero.domain.Platform;
 import com.zero.repository.DeveloperRepository;
 
 import jakarta.transaction.Transactional;
@@ -111,6 +114,26 @@ public class DeveloperService {
 			}
 			
 		}
+	}
+	
+	public List<DeveloperAPI> developerApi(){
+		List<DeveloperAPI> developersAPI = new ArrayList<DeveloperAPI>();
+		
+		Collection<Developer> developers = this.developerRepository.findAll();
+		
+		for(Developer developer : developers) {
+			DeveloperAPI d = new DeveloperAPI();
+			
+			d.setId(developer.getId());
+			d.setName(developer.getName());
+			d.setSlug(developer.getSlug());
+			d.setDescription(developer.getDescription());
+			d.setGames_count(developer.getGames().size());
+			
+			developersAPI.add(d);
+		}
+		
+		return developersAPI;
 	}
 
 }

@@ -16,7 +16,17 @@ public class GameAPI {
     private String backgroundImage; 
     private Integer playtime;
     private String updated;
-    private List<PlatformListAPI> platforms;
+    private Double rating;
+    
+    public Double getRating() {
+		return rating;
+	}
+
+	public void setRating(Double rating) {
+		this.rating = rating;
+	}
+
+	private List<PlatformListAPI> platforms;
 
     // Getters and setters
 

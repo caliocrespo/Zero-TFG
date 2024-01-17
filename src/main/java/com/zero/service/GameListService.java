@@ -1,6 +1,8 @@
 package com.zero.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import com.zero.domain.Game;
 import com.zero.domain.GameList;
 import com.zero.domain.UserEntity;
 import com.zero.repository.GameListRepository;
+import com.zero.auxiliar.ListAPI;
 
 import jakarta.transaction.Transactional;
 
@@ -22,6 +25,9 @@ public class GameListService {
 	private GameListRepository gameListRepository;
 	
 	//Others repositories/services
+	
+	@Autowired
+	private GameService gameService;
 	
 	//Constructor
 	
@@ -82,5 +88,30 @@ public class GameListService {
 	}
 	
 	//Others method
+	
+	public List<ListAPI> gameListAPI(){
+		List<ListAPI> listsAPI = new ArrayList<>();
+		
+		Collection<GameList> lists = this.gameListRepository.findAllPublic();
+		
+		for(GameList list : lists) {
+			ListAPI listAPI = new ListAPI();
+			
+			listAPI.setDescription(list.getDescription());
+			listAPI.setId(list.getId());
+			listAPI.setTitle(list.getTitle());
+			listAPI.setGames_count(list.getGames().size());
+			listAPI.setUser(list.getUser().getUsername());
+			
+			for(Game game : list.getGames()) {
+				listAPI.addGame(this.gameService.transformToAPI(game));
+			}
+			
+			listsAPI.add(listAPI);
+		}
+		
+		return listsAPI;
+		
+	}
 
 }

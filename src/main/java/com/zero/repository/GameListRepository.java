@@ -22,6 +22,9 @@ public interface GameListRepository extends JpaRepository<GameList,Integer>{
 	@Query("select g from GameList g where g.user.username = ?1")
 	Collection<GameList> findByUsername(String username);
 	
+	@Query("select g from GameList g where shared = TRUE")
+	Collection<GameList> findAllPublic();
+	
 	@Query("select g from GameList g where g.user.username = ?1 AND shared = TRUE")
 	Page<GameList> findByUsernamePublic(String username, Pageable pageable);
 

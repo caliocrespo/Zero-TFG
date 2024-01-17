@@ -24,14 +24,17 @@ public class GameApiController {
 	
 	
 	@GetMapping
-	public Collection<GameAPI> getGames(@RequestParam(required = false) Integer id, @RequestParam (required=false) String name){
+	public Collection<GameAPI> getGames(@RequestParam(required = false) Integer id, @RequestParam (required=false) String name,
+			@RequestParam (required=false) Double minRating, @RequestParam (required = false) Double maxRating,
+			@RequestParam (required = false) Integer year){
 		List<GameAPI> games= gameService.gamesApi();
 		
 		
 		
 		games = games.stream().filter(game -> (id == null || game.getId() == id.intValue()) 
-				&& name == null || game.getSlug().equalsIgnoreCase(name)
-				).collect(Collectors.toList());
+				&& (name == null || game.getSlug().equalsIgnoreCase(name))
+				&& (minRating == null || (game.getRating() != null && game.getRating() >= minRating))
+				&& (maxRating == null || (game.getRating() != null && game.getRating() <= maxRating))).collect(Collectors.toList());
 		
 		return  games;
 	}

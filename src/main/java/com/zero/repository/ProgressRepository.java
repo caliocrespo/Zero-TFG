@@ -1,6 +1,7 @@
 package com.zero.repository;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,4 +42,7 @@ public interface ProgressRepository extends JpaRepository<Progress,Integer>{
 	
 	@Query("select p from Progress p  where p.user.username = ?1 ORDER BY p.rating DESC")
 	Collection<Progress> findOrderProgress(String username);
+	
+	@Query("select p from Progress p")
+	List<Progress> findAll();
 }

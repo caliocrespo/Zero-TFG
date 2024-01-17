@@ -12,25 +12,25 @@
 
 	<header th:replace="~{master-page/header}"></header>
 
-	<div class="container text-center" style="background-color: #1C2833; color:aliceblue; max-width: 1500px;">
+	<div class="container text-center" style="background-color: #1C2833; color:aliceblue; width: 100%">
 
 		<!-- Image and title -->
 		<div class="row">
-			<div class="col-6 col-md-4"><img th:src="${game.image}" alt="Not found"
-					style="width: 300px; height: 175px; margin-top: 50px; border: 1px solid white;"></div>
-			<div class="col-6 col-md-5" style="display: flex; align-items: center; margin-left: -50px;">
+			<div class="col" style="max-width: 30%;"><img th:src="${game.image}" alt="Not found"
+					style="max-width: 100%; height: 175px; margin-top: 50px; border: 1px solid white;"></div>
+			<div class="col-6" style="display: flex; align-items: center; max-width: 40%;">
 				<h1 th:text="${game.title}" class="game-title"></h1>
 			</div>
-			<div class="col">
+			<div class="col" style="max-width: 30%;">
 
 
 			</div>
 		</div>
 
 		<!-- All the Progress thing and number added number reviews -->
-		<div class="row" style="height: 20px;">
-			<div class="col-6 col-md-4"></div>
-			<div class="col-6 col-md-5 stats">
+		<div class="row" style="width: 100%;">
+			<div class="col" style="max-width: 30%;"></div>
+			<div class="col-6 stats" style="max-width: 40%;">
 
 				<img src="/img/plus.png" style="height: 20px; width: 20px; margin-bottom: 4px;">
 				<span th:text="${progressCount}" style="margin-right: 5px;"></span>
@@ -39,7 +39,61 @@
 
 
 			</div>
-			<div class="col" style="margin-top:-50px;">
+			<div class="col" style="max-width: 30%;">
+		</div>
+
+		<!-- Realease date, developers, platforms and genres -->
+		<div class="row" style="width: 100%;">
+			<div class="col info-table" style="max-width: 30%;">
+				<table class="table table-dark table-hover">
+					<tbody>
+						<tr>
+							<th>Release Date</th>
+							<td>
+								<div>
+									<p th:text="${#dates.format(game.release_date,'dd/MM/yyyy')}"></p>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>Developer</th>
+							<td>
+								<div th:if="${developers !=null}">
+									<div th:each="developer : ${developers}">
+										<a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+											th:text="${developer.name}"
+											th:href="@{games/listByDeveloper(developerId=${developer.id})}"></a>
+									</div>
+								</div>
+
+								<span th:if="${developers == null}" th:text="UNKOWN"></span>
+							</td>
+						</tr>
+						<tr>
+							<th>Platforms</th>
+							<td>
+								<div th:each="platform : ${platforms}">
+									<a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+										th:text="${platform.name}"
+										th:href="@{games/listByPlatform(platformId=${platform.id})}"></a>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>Genres</th>
+							<td>
+								<div th:each="genre : ${genres}">
+									<a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+										th:text="${genre.name}" th:href="@{games/listByGenre(genreId=${genre.id})}"></a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-6" style="text-align: justify; margin-top: 30px; max-width: 40%;" th:utext="${game.description}">
+			</div>
+			<div class="col" style="margin-top:-50px; max-width: 30%;" sec:authorize="isAuthenticated()">
 				<div th:if=${param.progressSuccess}>
 					<div class="alert alert-success" style="margin-top: -74px;">Progress saved!</div>
 				</div>
@@ -161,68 +215,14 @@
 					<input type="hidden" name="gameId" th:value="${game.id}" />
 				</form>
 			</div>
-		</div>
-
-		<!-- Realease date, developers, platforms and genres -->
-		<div class="row">
-			<div class="col-6 col-md-4 info-table">
-				<table class="table table-dark table-hover">
-					<tbody>
-						<tr>
-							<th>Release Date</th>
-							<td>
-								<div>
-									<p th:text="${#dates.format(game.release_date,'dd/MM/yyyy')}"></p>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th>Developer</th>
-							<td>
-								<div th:if="${developers !=null}">
-									<div th:each="developer : ${developers}">
-										<a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-											th:text="${developer.name}"
-											th:href="@{games/listByDeveloper(developerId=${developer.id})}"></a>
-									</div>
-								</div>
-
-								<span th:if="${developers == null}" th:text="UNKOWN"></span>
-							</td>
-						</tr>
-						<tr>
-							<th>Platforms</th>
-							<td>
-								<div th:each="platform : ${platforms}">
-									<a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-										th:text="${platform.name}"
-										th:href="@{games/listByPlatform(platformId=${platform.id})}"></a>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th>Genres</th>
-							<td>
-								<div th:each="genre : ${genres}">
-									<a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-										th:text="${genre.name}" th:href="@{games/listByGenre(genreId=${genre.id})}"></a>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="col-6 col-md-5" style="text-align: justify; margin-top: 30px;" th:utext="${game.description}">
-			</div>
-			<div class="col-6 col-md-4">
 
 			</div>
 		</div>
 
 		<!-- More reviews -->
-		<div class="row">
-			<div class="col-6 col-md-4 info-table"></div>
-			<div class="col-6 col-md-5" style="border-bottom: 1px solid white; margin-top: 10px;">
+		<div class="row" style="width: 100%;">
+			<div class="col" style="max-width: 30%;"></div>
+			<div class="col-6" style="border-bottom: 1px solid white; margin-top: 10px; max-width: 40%;">
 				<table style="width: 100%;">
 					<tr>
 						<td style="text-align: left;">
@@ -237,19 +237,19 @@
 
 
 			</div>
-			<div class="col-6 col-md-4"></div>
+			<div class="col" style="max-width: 30%;"></div>
 		</div>
 
 		<!-- Reviews -->
-		<div class="row">
-			<div class="col-6 col-md-4 info-table"></div>
+		<div class="row" style="width: 100%;">
+			<div class="col" style="max-width: 30%;"></div>
 
 
-			<div class="col-6 col-md-5" th:if="${reviews == null}"
-				style="margin-top: 75px; margin-bottom: 75px;font-style: italic; ">
+			<div class="col-6" th:if="${reviews == null}"
+				style="margin-top: 75px; margin-bottom: 75px;font-style: italic; max-width: 40%;">
 				<span>No reviews yet</span>
 			</div>
-			<div class="col-6 col-md-5" th:if="${reviews != null}">
+			<div class="col-6" th:if="${reviews != null}" style="max-width: 40%;">
 				<div th:each="review, iterationStatus : ${reviews}">
 					<th:block th:if="${iterationStatus.index < 3}">
 						<div style="text-align: left; border-bottom: 0.2px solid grey;">
@@ -275,13 +275,10 @@
 				</div>
 
 			</div>
-			<div class="col-6 col-md-4"></div>
+			<div class="col" style="max-width: 30%;"></div>
 		</div>
 	</div>
-
-
-	</div>
-
+</div>
 	<!-- External window to add a game to a list-->
 	<dialog id="modal1">
 		<form method="post" action="/gameList/saveGame">

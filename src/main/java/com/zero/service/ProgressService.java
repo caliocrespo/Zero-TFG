@@ -1,6 +1,8 @@
 package com.zero.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import com.zero.repository.ProgressRepository;
 import com.zero.domain.Game;
 import com.zero.domain.Progress;
 import com.zero.domain.UserEntity;
+import com.zero.auxiliar.ProgressAPI;
 
 import jakarta.transaction.Transactional;
 
@@ -22,7 +25,8 @@ public class ProgressService {
 	private ProgressRepository progressRepository;
 	
 	//Others repositories/services
-	
+	@Autowired
+	private ReviewService reviewService;
 	@Autowired
 	private GameService gameService;
 	
@@ -117,6 +121,38 @@ public class ProgressService {
 		return result;
 	}
 	
+	public Collection<Progress> findAll(){
+		Collection<Progress> result;
+		
+		result = this.progressRepository.findAll();
+		
+		return result;
+	}
+	
 	//Others method
+	
+	public List<ProgressAPI> progressAPI(){
+		List<ProgressAPI> progressAPI = new ArrayList<>();
+		
+		Collection<Progress> progressList = this.progressRepository.findAll();
+		
+		for(Progress progress : progressList) {
+			ProgressAPI p = new ProgressAPI();
+			
+			p.setFinish_date(progress.getFinish_date());
+			p.setStatus(progress.getStatus());
+			p.setRating(progress.getRating());
+			p.setId(progress.getId());
+			p.setGame(gameService.transformToAPI(progress.getGame()));
+			if(progress.getReview()!=null) {
+				p.setReview(reviewService.transformToAPI(progress.getReview()));
+			}
+			p.setUsername(progress.getUser().getUsername());
+			progressAPI.add(p);
+		}
+		
+		return progressAPI;
+		
+	}
 
 }

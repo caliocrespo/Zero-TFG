@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.zero.auxiliar.ReviewAPI;
 import com.zero.domain.Progress;
 import com.zero.domain.Review;
 import com.zero.repository.ReviewRepository;
@@ -93,5 +94,14 @@ public class ReviewService {
 	
 	
 	//Others method
+	
+	public ReviewAPI transformToAPI(Review review) {
+		ReviewAPI result = new ReviewAPI();
+		
+		result.setId(review.getId());
+		result.setText(review.getText());
+		
+		return result;		
+	}
 
 }

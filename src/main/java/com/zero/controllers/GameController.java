@@ -269,10 +269,7 @@ public class GameController {
     	Collection<Game> games;
     	GameList gameList = this.gameListService.findById(gameListId);
     	
-    	
     	games = gameList.getGames();
-    	
-    	
     	
     	mav.addObject("gameList", gameList);
     	mav.addObject("games", games);

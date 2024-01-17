@@ -16,10 +16,6 @@ btn btn-outline-success {
 	margin-right: 10px;
 }
 
-.beti {
-	background-color: #5F6063
-		/*#A1887F*/
-}
 
 .text-end.fs-4.fst-italic.fw-bold {
 	color: #1C2833;
@@ -27,7 +23,7 @@ btn btn-outline-success {
 
 .card-text.text-justify {
 	display: -webkit-box;
-	height: 100px;
+	height: 94px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	-webkit-line-clamp: 4;
@@ -51,7 +47,7 @@ btn btn-outline-success {
 
 .row {
 	box-sizing: content-box;
-	max-width: 1400px;
+	max-width: 1500px;
 	width: auto
 }
 
@@ -84,12 +80,12 @@ btn btn-outline-success {
 
 .col-6.col-md-4.info-table {
 	margin-top: 30px;
-	width: 340px;
+	max-width: 340px;
 	margin-left: 50px;
 }
 
 .stats {
-	margin-left: -50px;
+	
 	text-align: left;
 	align-content: start;
 	font-size: 17px;

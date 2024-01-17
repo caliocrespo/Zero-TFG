@@ -266,6 +266,22 @@ public class GameService {
 		
 		return gamesAPI;
 	}
+	
+	public GameAPI transformToAPI(Game game) {
+		GameAPI g = new GameAPI();
+		g.setId(game.getId());
+		g.setName(game.getTitle());
+		g.setDescription(game.getDescription());
+		g.setBackgroundImage(game.getImage());
+		g.setReleased(game.getRelease_date().toString());
+		g.setSlug(game.getSlug());
+		if(game.getRate() != null) {
+			g.setRating(game.getRate());
+		}
+		
+		return g;
+		
+	}
 
 	
 

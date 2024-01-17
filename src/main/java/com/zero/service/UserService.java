@@ -52,6 +52,14 @@ public class UserService implements UserDetailsService{
 		
 	}
 	
+	public void saveChanges(UserEntity userChange, String username) {
+		UserEntity user = this.findByUsername(username);
+		user.setCountry(userChange.getCountry());
+		user.setLastName(userChange.getLastName());
+		user.setName(userChange.getName());
+		userRepository.save(user);
+	}
+	
 	//Finds method
 	
 	public UserEntity findByEmail(String email) {

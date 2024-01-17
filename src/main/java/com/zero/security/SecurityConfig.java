@@ -47,18 +47,20 @@ public class SecurityConfig {
 	
 	 @Bean
 	    public WebSecurityCustomizer webSecurityCustomizer() {
-	        return (web) -> web.ignoring().requestMatchers("/favicon.ico");
+	        return (web) -> web.ignoring().requestMatchers("/favicon.ico","/error");
 	    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests((authorize) -> authorize
-				.requestMatchers("/login","/index","/register","/register?error","css/**","js/**","img/**","/api/**").permitAll()
+				.requestMatchers("/login","/index","/register","/register?error","css/**","js/**","img/**","/api/**"
+						,"/games/list","/developers/list","/genres/list","/platforms/list","/games/search", "gameList/list",
+						 "/{username}","/{username}/games").permitAll()
 				.anyRequest().authenticated())
 			.authenticationProvider(authenticationProvider())
 			.csrf((csrf) -> csrf.disable())
-			.httpBasic(Customizer.withDefaults())
+			.authorizeHttpRequests(Customizer.withDefaults())
 			.logout((logout) -> logout
 					.invalidateHttpSession(true)
 					.clearAuthentication(true)
@@ -67,7 +69,8 @@ public class SecurityConfig {
 			        .permitAll())
 			.formLogin(form -> form
 					.loginPage("/login")
-					.permitAll());
+					.permitAll()
+					.defaultSuccessUrl("/index"));
 			
 
 		return http.build();

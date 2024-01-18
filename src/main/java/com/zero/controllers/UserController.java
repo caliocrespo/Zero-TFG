@@ -51,7 +51,7 @@ public class UserController {
 		Collection<Progress> last4 = progressService.findTop4CompletedByUser(username);
 		Collection<Progress> allProgress = progressService.findByUsername(username);
 		Collection<GameList> gameLists = gameListService.findByUsername(username);
-		Review lastReview = reviewService.findLastReview(username);
+		Progress lastReview = progressService.findLastReview(username);
 		Progress lastGame = progressService.findLastProgress(username);
 		UserEntity user=userService.findByUsername(username);
 		mav = new ModelAndView("/user/profile");
@@ -63,7 +63,9 @@ public class UserController {
 		mav.addObject("last4", last4);
 		mav.addObject("progress", allProgress);
 		mav.addObject("username", username);
-		mav.addObject("lastReview", lastReview);
+		
+			mav.addObject("lastReview", lastReview);
+		
 		
 		return mav;
 	}

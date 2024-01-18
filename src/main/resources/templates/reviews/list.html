@@ -20,17 +20,17 @@
 						<table style="width: 100%;">
 							<tr>
 								<td>
-									<a class="link-success link-underline-opacity-0 link-underline-opacity-0-hover" th:text="${review.progress.user.username}"
-										th:href="@{/{username}(username=${review.progress.user.username})}">"></a>
+									<a class="link-success link-underline-opacity-0 link-underline-opacity-0-hover" th:text="${review.user.username}"
+										th:href="@{/{username}(username=${review.user.username})}">"></a>
 								</td>
 								<td style="text-align: right;">
-									<p th:utext="${review.progress.rating % 1 == 0 ? #numbers.formatInteger(review.progress.rating,1) :
-								#numbers.formatDecimal(review.progress.rating,1,1,'POINT')}" style="margin-bottom: -5px;"></p>
+									<p th:utext="${review.rating % 1 == 0 ? #numbers.formatInteger(review.rating,1) :
+								#numbers.formatDecimal(review.rating,1,1,'POINT')}" style="margin-bottom: -5px;"></p>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<p th:text="${review.text}"></p>
+									<p th:text="${review.review.text}"></p>
 								</td>
 							</tr>
 						</table>

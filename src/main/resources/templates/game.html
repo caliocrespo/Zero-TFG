@@ -106,6 +106,12 @@
 				<div th:if=${param.reviewSuccess}>
 					<div class="alert alert-success" style="margin-top: -74px;">Review saved!</div>
 				</div>
+				<div th:if=${param.reviewDeleted}>
+					<div class="alert alert-success" style="margin-top: -74px;">Your review has been deleted</div>
+				</div>
+				<div th:if=${param.progressDeleted}>
+					<div class="alert alert-success" style="margin-top: -74px;">Your progress has been deleted</div>
+				</div>
 				<form method="post" action="/progress/rated">
 					<table class="table table-dark table-hover" style="border: 3px #198754 solid; ">
 						<tbody>
@@ -208,7 +214,12 @@
 					</tr>
 
 					<tr>
-						<td><button type="submit" class="btn btn-success" id="saveRate">Save Progress</button></td>
+						<td>
+							<button type="submit" class="btn btn-success" id="saveRate">Save Progress</button>
+							<a class="btn btn-danger" th:if="${status != null}" th:href="@{progress/delete(id=${progressId})}"
+							th:data-confirm-delete="|Are you sure do you want to delete your progress?|" 
+							onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">Remove Progress</a>
+						</td>
 					</tr>
 					</tbody>
 					</table>
@@ -257,17 +268,17 @@
 								<tr>
 									<td>
 										<a class="link-success link-underline-opacity-0 link-underline-opacity-0-hover" 
-										th:text="${review.progress.user.username}"
-										th:href="@{/{username}(username=${review.progress.user.username})}"></a>
+										th:text="${review.user.username}"
+										th:href="@{/{username}(username=${review.user.username})}"></a>
 									</td>
 									<td style="text-align: right;">
-										<p th:utext="${review.progress.rating % 1 == 0 ? #numbers.formatInteger(review.progress.rating,1) :
-								#numbers.formatDecimal(review.progress.rating,1,1,'POINT')}"></p>
+										<p th:utext="${review.rating % 1 == 0 ? #numbers.formatInteger(review.rating,1) :
+								#numbers.formatDecimal(review.rating,1,1,'POINT')}"></p>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<p th:text="${review.text}"></p>
+										<p  style="text-align: justify;" th:text="${review.review.text}"></p>
 									</td>
 								</tr>
 							</table>

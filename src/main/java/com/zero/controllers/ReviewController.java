@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zero.domain.Game;
 import com.zero.domain.Progress;
 import com.zero.domain.Review;
+import com.zero.repository.ProgressRepository;
 import com.zero.repository.ReviewRepository;
 import com.zero.service.GameService;
 import com.zero.service.ProgressService;
@@ -34,6 +35,9 @@ public class ReviewController {
 	
 	@Autowired
 	ProgressService progressService;
+
+	@Autowired
+	private ProgressRepository progressRepository;
 	
 	@GetMapping("/review")
 	public ModelAndView review(@RequestParam int id) {//progress id
@@ -65,7 +69,7 @@ public class ReviewController {
 	public ModelAndView list(@RequestParam int gameId, @RequestParam(defaultValue= "1") int page) {
 		ModelAndView mav;
 		
-		Collection<Review> reviews;
+		Collection<Progress> reviews;
 		Game game;
 		
 		game=gameService.findById(gameId);
@@ -74,7 +78,7 @@ public class ReviewController {
 		
 		Pageable paging= PageRequest.of(page-1, 10);
 		
-		Page<Review> pReview = reviewRepository.findByGamePage(gameId, paging);
+		Page<Progress> pReview = progressRepository.findByGameReviewedPage(gameId, paging);
 		
 		reviews = pReview.getContent();
 		
@@ -99,7 +103,29 @@ public class ReviewController {
 		
 		this.reviewService.save(review);
 		
-		return new ModelAndView("redirect:/game?reviewSuccess&id=" + review.getProgress().getGame().getId());
+		Progress progress = this.progressService.findById(progressId);
+		
+		return new ModelAndView("redirect:/game?reviewSuccess&id=" + progress.getGame().getId());
+		
+		
+		
+	}
+	
+	@GetMapping("/review/delete")
+	public ModelAndView delete(@RequestParam int progressId) {
+		Review review;
+		
+		Progress progress = this.progressService.findById(progressId);
+		
+		review = reviewService.findById(progress.getReview().getId());
+		
+		progress.setReview(null);
+		
+		this.progressService.save(progress);
+		
+		reviewService.delete(review);
+		
+		return new ModelAndView("redirect:/game?reviewDeleted&id=" + progress.getGame().getId());
 		
 	}
 }

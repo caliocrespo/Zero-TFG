@@ -44,10 +44,10 @@
 			<div style="border-bottom: 1px solid green;">
 				<div style="text-align: left; font-style: italic; display: flex">
 					<p>Review of&nbsp;</p>
-					<a th:text="${lastReview.progress.game.title}" th:href="@{/game(id=${lastReview.progress.game.id})}"
+					<a th:text="${lastReview.game.title}" th:href="@{/game(id=${lastReview.game.id})}"
 						class="link-success link-underline-opacity-0 link-underline-opacity-0-hover"></a>
 				</div>
-				<p th:text="${lastReview.text}"></p>
+				<p style="text-align: justify;" th:text="${lastReview.review.text}"></p>
 
 			</div>
 		</section>

@@ -56,6 +56,11 @@ public class GameListService {
 		return result;		
 	}
 	
+	public void delete(GameList gameList) {
+		this.gameListRepository.delete(gameList);
+		
+	}
+	
 	//Finds method
 	
 	public GameList findById(int id) {
@@ -73,12 +78,17 @@ public class GameListService {
 		
 		return result;
 	}
-
-
-	public void delete(GameList gameList) {
-		this.gameListRepository.delete(gameList);
+	
+	public Collection<GameList> findAllPublic(){
+		Collection<GameList> result;
 		
+		result = this.gameListRepository.findAllPublic();
+		
+		return result;
 	}
+
+
+	
 
 
 	public void deleteGame(GameList gameList, Game game) {

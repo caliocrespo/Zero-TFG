@@ -26,7 +26,8 @@
 				<div class="col-4 d-none d-md-block"></div>
 				<div class="col-12 col-md-8" style="margin-bottom: 50px;">
 					<button type="submit" class="btn btn-success btn-block">Save</button>
-					<button class="btn btn-danger btn-block">Delete</button>
+					<a class="btn btn-danger btn-block" th:href="@{/review/delete(progressId=${progressId})}" th:data-confirm-delete="|Are you sure do you want to delete the review?|"
+					onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">Delete</a>
 				</div>
 				<div class="col-6 col-md-4"></div>
 				<input type="hidden" name="reviewId" id="reviewId" th:value="${reviewId}" />

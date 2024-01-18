@@ -105,6 +105,14 @@ public class GameService {
 		
 		return result;
 	}
+	
+	public Collection<Game> findOrderByProgress(){
+		Collection<Game> result;
+		
+		result = this.gameRepository.findOrderByProgress();
+		
+		return result;
+	}
 
 	// Others method
 

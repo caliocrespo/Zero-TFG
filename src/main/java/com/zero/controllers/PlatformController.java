@@ -16,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zero.domain.Platform;
 import com.zero.service.PlatformService;
 
+import jakarta.annotation.PostConstruct;
+
 @Controller
 public class PlatformController {
 	

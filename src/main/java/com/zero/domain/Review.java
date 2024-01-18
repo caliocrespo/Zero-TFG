@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 
 public class Review extends DomainEntity{
 	private String text;
-	private Progress progress;
+	//private Progress progress;
 
 	//---------- Getters ----------
 	
@@ -27,14 +27,14 @@ public class Review extends DomainEntity{
 	
 	//---------Relationships---------------
 	
-	@OneToOne(optional=false)
+	/*@OneToOne(optional=false)
 	public Progress getProgress() {
 		return progress;
 	}
 
 	public void setProgress(Progress progress) {
 		this.progress = progress;
-	}
+	}*/
 	
 	
 }

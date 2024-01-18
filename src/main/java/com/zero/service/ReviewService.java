@@ -58,11 +58,22 @@ public class ReviewService {
 		
 		Progress progress = progressService.findById(progressId);
 		
-		review.setProgress(progress);
 		
 		result=this.reviewRepository.save(review);
 		
+		progress.setReview(review);
+		
+		this.progressService.save(progress);
+		
 		return result;
+	}
+	
+	public void delete(Review review) {
+		
+		
+		
+		this.reviewRepository.delete(review);
+		
 	}
 	
 	//Finds method
@@ -83,13 +94,6 @@ public class ReviewService {
 		return reviews;
 	}
 	
-	public Review findLastReview(String username) {
-		Review result;
-		
-		result = reviewRepository.findLastReview(username);
-		
-		return result;
-	}
 
 	
 	
@@ -103,5 +107,7 @@ public class ReviewService {
 		
 		return result;		
 	}
+
+	
 
 }

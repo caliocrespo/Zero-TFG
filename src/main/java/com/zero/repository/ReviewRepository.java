@@ -16,12 +16,11 @@ public interface ReviewRepository extends JpaRepository<Review,Integer>{
 	@Query("select r from Review r where r.id = ?1")
 	Review findById(int id);
 	
-	@Query("select r from Review r where r.progress.game.id = ?1 AND r.text IS NOT NULL")
+	@Query("select p.review from Progress p where p.game.id = ?1 AND p.review.text IS NOT NULL")
 	Collection<Review> findByGame(int gameId);
 	
-	@Query( value ="select r from Review r where r.progress.game.id = :gameId AND r.text IS NOT NULL")
+	@Query( value ="select p.review from Progress p where p.game.id = :gameId AND p.review.text IS NOT NULL")
 	Page<Review> findByGamePage(@Param("gameId") int gameId, Pageable pageable);
 	
-	@Query("select r from Review r where r.id = (select max(r2.id) from Review r2 where r2.progress.user.username = ?1)")
-	Review findLastReview(String username);
+	
 }

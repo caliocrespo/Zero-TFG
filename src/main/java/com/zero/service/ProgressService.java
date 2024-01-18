@@ -62,6 +62,11 @@ public class ProgressService {
 		
 		return result;
 	}
+	
+	public void delete(Progress progress) {
+		this.progressRepository.delete(progress);
+		
+	}
 	//Finds method
 	
 	
@@ -121,6 +126,22 @@ public class ProgressService {
 		return result;
 	}
 	
+	public Collection<Progress> findWithReview(int gameId) {
+		Collection<Progress> result;
+		
+		result = this.progressRepository.findWithReview(gameId);
+		
+		return result;
+	}
+	
+	public Progress findLastReview(String username) {
+		Progress result;
+		
+		result = this.progressRepository.findLastProgress(username);
+		
+		return result;
+	}
+	
 	public Collection<Progress> findAll(){
 		Collection<Progress> result;
 		
@@ -154,5 +175,7 @@ public class ProgressService {
 		return progressAPI;
 		
 	}
+
+	
 
 }

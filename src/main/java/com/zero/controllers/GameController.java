@@ -85,7 +85,7 @@ public class GameController {
     	}
     	
     	Collection<Progress> progress = progressService.findByGame(id);
-    	Collection<Review> reviews = reviewService.findByGame(id);
+    	Collection<Progress> reviewed = progressService.findWithReview(id);
     	
     	if(progress.isEmpty()) {
     		 mav.addObject("progressCount", "0");
@@ -93,7 +93,7 @@ public class GameController {
     		 mav.addObject("rating", "-");
     	}else {
     		mav.addObject("progressCount", Integer.toString(progress.size()));
-    		mav.addObject("reviewsCount", Integer.toString(reviews.size()));
+    		mav.addObject("reviewsCount", Integer.toString(reviewed.size()));
     		if(progressService.findRatingByGame(id) != null) {
     			String rating = String.format("%.1f",progressService.findRatingByGame(id));
     			mav.addObject("rating", rating);
@@ -104,8 +104,8 @@ public class GameController {
 
     	}
     	
-    	if(reviews.size() > 0) {
-    		mav.addObject("reviews", reviews);
+    	if(reviewed.size() > 0) {
+    		mav.addObject("reviews", reviewed);
     	}
     	
     	

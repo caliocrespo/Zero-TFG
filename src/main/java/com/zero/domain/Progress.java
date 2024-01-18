@@ -46,7 +46,7 @@ public class Progress extends DomainEntity{
 	
 	//---------Relationships------------------
 	
-	@OneToOne(optional=true,mappedBy="progress")
+	@OneToOne(cascade = CascadeType.ALL)
 	public Review getReview() {
 		return review;
 	}

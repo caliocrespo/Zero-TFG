@@ -25,6 +25,9 @@ public interface GameRepository extends JpaRepository<Game,Integer>{
 	@Query("select g from Game g where g.id = ?1")
 	Game findById(int gameId);
 	
+	@Query("select g from Game g order by SIZE(g.progress) DESC")
+	Collection<Game> findOrderByProgress();
+	
 	@Query("select g from Game g where LOWER(g.title) LIKE LOWER(CONCAT(?1,'%'))")
 	Page<Game> searchGame(String title, Pageable paging);
 	

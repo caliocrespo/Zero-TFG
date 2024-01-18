@@ -26,9 +26,6 @@ public class GameUserController {
 		mav=new ModelAndView("/user/MyGames");
 		
 		return mav;
-		
-		
-		
 	}
 	
 	

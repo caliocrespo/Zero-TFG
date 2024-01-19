@@ -117,6 +117,9 @@ public class GameController {
     		mav.addObject("ownRating", ownProgress.getRating());
     		mav.addObject("progressId", ownProgress.getId());
     		mav.addObject("ownReview", ownProgress.getReview());
+    		if(ownProgress.getStatus().equals("Completed")) {
+    			mav.addObject("finishDate", ownProgress.getFinish_date());
+    		}
     	}
     	
     	

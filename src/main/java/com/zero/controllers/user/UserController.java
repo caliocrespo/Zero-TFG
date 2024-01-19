@@ -1,4 +1,4 @@
-package com.zero.controllers;
+package com.zero.controllers.user;
 
 import java.util.Collection;
 

@@ -13,11 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
-import com.zero.auxiliar.GameAPI;
 import com.zero.auxiliar.GenreAPI;
 import com.zero.auxiliar.GenreList;
 import com.zero.repository.GenreRepository;
-import com.zero.domain.Game;
 import com.zero.domain.Genre;
 
 import jakarta.transaction.Transactional;

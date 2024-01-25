@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.zero.domain.Developer;
@@ -63,8 +64,9 @@ public class GameController {
 	private ProgressRepository progressRepository;
 
 
-    //@PostConstruct
-    public void getAllRAWGGames() throws ParseException {
+    
+	//@Scheduled(fixedRate = 86400000)
+    public void getRAWGGames() throws ParseException {
         gameService.getAPIGames();
     }
     

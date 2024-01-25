@@ -87,8 +87,8 @@
 			</tr>
 			<tr style="border-bottom: 1px solid #DDD;">
 				<td style="width: 95%; text-align: left; ">
-					<a th:href="@{/{username}/games(status=${'Plan to Watch'}, username=${username})}" class="trLink">
-						<p style="margin-top: 5px; margin-bottom: 5px;">Plant to Watch</p>
+					<a th:href="@{/{username}/games(status=${'Plan to Play'}, username=${username})}" class="trLink">
+						<p style="margin-top: 5px; margin-bottom: 5px;">Plant to Play</p>
 					</a>
 				</td>
 				<td style="text-align: right;" th:text="${#lists.size(progress.?[status eq 'Plan to watch'])}"></td>

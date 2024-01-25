@@ -39,7 +39,7 @@ public interface ProgressRepository extends JpaRepository<Progress,Integer>{
 	@Query("select p from Progress p where p.status = 'Completed' AND p.user.username = ?1 ORDER BY p.finish_date DESC")
 	Collection<Progress> findTop4CompletedByUser(String username);
 	
-	@Query("select p from Progress p where p.id = (select max(p2.id) from Progress p2 where p2.user.username = ?1)")
+	@Query("select p from Progress p where p.review.id = (select max(p2.review.id) from Progress p2 where p2.user.username = ?1)")
 	Progress findLastProgress(String username);
 	
 	@Query("select p from Progress p  where p.user.username = ?1 ORDER BY p.rating DESC")

@@ -9,7 +9,7 @@
 <body class="color-body">
 	<header th:replace="~{master-page/header}"></header>
 
-	<div class="container text-center" style="width: 1000px; margin-bottom: -16px;">
+	<div class="container text-center" style="width: 1000px;">
 		<div style="text-align: left; width: 90%; margin-left: 20px; font-size: 30px; border-bottom: 1px solid white;
 		margin-bottom: 10px;">
 			<p style="margin-bottom: -3px;">New List</p>
@@ -34,16 +34,15 @@
 					th:text="${exist ? gameList.description : ''}" style="width: 90%; height: 400px;"></textarea>
 				</div>
 				<input th:if="${exist}" type="hidden" name="id" th:value="${gameList.id}" />
-				<div>
+				<div style="padding-bottom: 10px;">
 					<button type="submit" class="btn btn-success">Save</button>
-					<button type="submit" class="btn btn-danger">Delete</button>
 				</div>
 			</form>
 		</div>
 		<div th:if="${exist}" style="margin-top: 20px;">
 			<h4>Games</h4>
 			
-			<table class="table table-dark table-hover" style="vertical-align: middle; text-align: left;">
+			<table class="table table-dark table-hover" style="vertical-align: middle; text-align: left; margin-bottom: 0;">
 
 				<tr th:each="game : ${gameList.games}">
 					<td style="width: 10px;"><img th:src="${game.image}" style="width: 100px; height: 50px;"></td>

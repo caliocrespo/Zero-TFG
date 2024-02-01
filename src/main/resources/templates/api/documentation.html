@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<head>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+
+<body class="color-body">
+	<header th:replace="~{master-page/header}"></header>
+	<div class="container text-center" style="max-width: 1200px; margin-bottom: 0px;">
+		<div style="text-align: left;">
+
+			<p class="fs-2 fw-normal" >Get a list of games</p>
+
+			<div class="input-group mb-3 bs-light-text" style="width: 40%;">
+				<span class="input-group-text bg-dark text-success" id="inputGroup-sizing-default">GET</span>
+				<input type="text" class="form-control bg-dark text-light" aria-label="Sizing example input"
+					aria-describedby="inputGroup-sizing-default" value="/api/games" readonly>
+			</div>
+
+			<div>
+				<p class="fs-5 fw-light" style="width: 90%; border-bottom: 1px solid white;">QUERY PARAMETERS</p>
+				<table class="table table-dark table-striped-columns" style="width: 90%;">
+					<tr>
+						<td>ID</td>
+						<td>Integer</td>
+					</tr>
+					<tr>
+						<td>name</td>
+						<td>String</td>
+					</tr>
+					<tr>
+						<td>minRating</td>
+						<td>Double between 0 and 5</td>
+					</tr>
+					<tr>
+						<td>maxRating</td>
+						<td>Double between 0 and 5</td>
+					</tr>
+					<tr>
+						<td>year</td>
+						<td>Integer</td>
+					</tr>
+				</table>
+			</div>
+
+			<div>
+				<p class="fs-5 fw-light" style="width: 90%; border-bottom: 1px solid white;">RESPONSE SCHEMA</p>
+				<table class="table table-dark table-striped-columns" style="width: 90%;">
+					<tr>
+						<td>ID</td>
+						<td>Integer {Not empty}</td>
+					</tr>
+					<tr>
+						<td>slug</td>
+						<td>String {Not blank}</td>
+					</tr>
+					<tr>
+						<td>name</td>
+						<td>String {Not blank}</td>
+					</tr>
+					<tr>
+						<td>description</td>
+						<td>String</td>
+					</tr>
+					<tr>
+						<td>released</td>
+						<td>Date</td>
+					</tr>
+					<tr>
+						<td>rating</td>
+						<td>Double between 0 and 5</td>
+					</tr>
+					<tr>
+						<td>image_background</td>
+						<td>String {URL}</td>
+					</tr>
+				</table>
+			</div>
+			
+			<!-- Developers -->
+			<p class="fs-2 fw-normal">Get a list of developers</p>
+
+			<div class="input-group mb-3 bs-light-text" style="width: 40%;">
+				<span class="input-group-text bg-dark text-success" id="inputGroup-sizing-default">GET</span>
+				<input type="text" class="form-control bg-dark text-light" aria-label="Sizing example input"
+					aria-describedby="inputGroup-sizing-default" value="/api/developers" readonly>
+			</div>
+
+			<div>
+				<p class="fs-5 fw-light" style="width: 90%; border-bottom: 1px solid white;">QUERY PARAMETERS</p>
+				<table class="table table-dark table-striped-columns" style="width: 90%;">
+					<tr>
+						<td>ID</td>
+						<td>Integer</td>
+					</tr>
+					<tr>
+						<td>name</td>
+						<td>String</td>
+					</tr>
+				</table>
+			</div>
+
+			<div>
+				<p class="fs-5 fw-light" style="width: 90%; border-bottom: 1px solid white;">RESPONSE SCHEMA</p>
+				<table class="table table-dark table-striped-columns" style="width: 90%;">
+					<tr>
+						<td>ID</td>
+						<td>Integer {Not empty}</td>
+					</tr>
+					<tr>
+						<td>slug</td>
+						<td>String {Not blank}</td>
+					</tr>
+					<tr>
+						<td>name</td>
+						<td>String {Not blank}</td>
+					</tr>
+					<tr>
+						<td>games_count</td>
+						<td>Integer</td>
+					</tr>
+
+				</table>
+			</div>
+
+
+			<!-- Genres -->
+			<p class="fs-2 fw-normal">Get a list of genres</p>
+
+			<div class="input-group mb-3 bs-light-text" style="width: 40%;">
+				<span class="input-group-text bg-dark text-success" id="inputGroup-sizing-default">GET</span>
+				<input type="text" class="form-control bg-dark text-light" aria-label="Sizing example input"
+					aria-describedby="inputGroup-sizing-default" value="/api/genres" readonly>
+			</div>
+			
+			<div>
+				<p class="fs-5 fw-light" style="width: 90%; border-bottom: 1px solid white;">QUERY PARAMETERS</p>
+				<table class="table table-dark table-striped-columns" style="width: 90%;">
+					<tr>
+						<td>ID</td>
+						<td>Integer</td>
+					</tr>
+					<tr>
+						<td>name</td>
+						<td>String</td>
+					</tr>
+
+				</table>
+			</div>
+
+			<div>
+				<p class="fs-5 fw-light" style="width: 90%; border-bottom: 1px solid white;">RESPONSE SCHEMA</p>
+				<table class="table table-dark table-striped-columns" style="width: 90%;">
+					<tr>
+						<td>ID</td>
+						<td>Integer {Not empty}</td>
+					</tr>
+					<tr>
+						<td>slug</td>
+						<td>String {Not blank}</td>
+					</tr>
+					<tr>
+						<td>name</td>
+						<td>String {Not blank}</td>
+					</tr>
+					<tr>
+						<td>games_count</td>
+						<td>Integer</td>
+					</tr>
+
+				</table>
+			</div>
+
+			<!--Platforms -->
+
+			<p class="fs-2 fw-normal">Get a list of platforms</p>
+
+			<div class="input-group mb-3 bs-light-text" style="width: 40%;">
+				<span class="input-group-text bg-dark text-success" id="inputGroup-sizing-default">GET</span>
+				<input type="text" class="form-control bg-dark text-light" aria-label="Sizing example input"
+					aria-describedby="inputGroup-sizing-default" value="/api/platforms" readonly>
+			</div>
+
+			<div>
+				<p class="fs-5 fw-light" style="width: 90%; border-bottom: 1px solid white;">QUERY PARAMETERS</p>
+				<table class="table table-dark table-striped-columns" style="width: 90%;">
+
+					<tr>
+						<td>ID</td>
+						<td>Integer</td>
+					</tr>
+					<tr>
+						<td>name</td>
+						<td>String</td>
+					</tr>
+				</table>
+			</div>
+
+			<div>
+				<p class="fs-5 fw-light" style="width: 90%; border-bottom: 1px solid white;">RESPONSE SCHEMA</p>
+				<table class="table table-dark table-striped-columns" style="width: 90%;">
+					<tr>
+						<td>ID</td>
+						<td>Integer {Not empty}</td>
+					</tr>
+					<tr>
+						<td>slug</td>
+						<td>String {Not blank}</td>
+					</tr>
+					<tr>
+						<td>name</td>
+						<td>String {Not blank}</td>
+					</tr>
+					<tr>
+						<td>games_count</td>
+						<td>Integer</td>
+					</tr>
+
+				</table>
+			</div>
+
+			<!-- Progress -->
+
+			<p class="fs-2 fw-normal">Get a list of progress</p>
+
+			<div class="input-group mb-3 bs-light-text" style="width: 40%;">
+				<span class="input-group-text bg-dark text-success" id="inputGroup-sizing-default">GET</span>
+				<input type="text" class="form-control bg-dark text-light" aria-label="Sizing example input"
+					aria-describedby="inputGroup-sizing-default" value="/api/progress" readonly>
+			</div>
+
+			<div>
+				<p class="fs-5 fw-light" style="width: 90%; border-bottom: 1px solid white;">QUERY PARAMETERS</p>
+				<table class="table table-dark table-striped-columns" style="width: 90%;">
+					<tr>
+						<td>ID</td>
+						<td>Integer</td>
+					</tr>
+					<tr>
+						<td>gameName</td>
+						<td>String</td>
+					</tr>
+					<tr>
+						<td>gameId</td>
+						<td>Integer</td>
+					</tr>
+					<tr>
+						<td>minRating</td>
+						<td>Double between 0 and 5</td>
+					</tr>
+					<tr>
+						<td>maxRating</td>
+						<td>Double between 0 and 5</td>
+					</tr>
+					<tr>
+						<td>review</td>
+						<td>Boolean</td>
+					</tr>
+					<tr>
+						<td>reviewId</td>
+						<td>Integer</td>
+					</tr>
+					<tr>
+						<td>username</td>
+						<td>String</td>
+					</tr>
+				</table>
+			</div>
+
+			<div>
+				<p class="fs-5 fw-light" style="width: 90%; border-bottom: 1px solid white;">RESPONSE SCHEMA</p>
+				<table class="table table-dark table-striped-columns" style="width: 90%;">
+					<tr>
+						<td>ID</td>
+						<td>Integer {Not empty}</td>
+					</tr>
+					<tr>
+						<td>status</td>
+						<td>String {Not blank}</td>
+					</tr>
+					<tr>
+						<td>rating</td>
+						<td>Double {Not empty} (between 0 and 5)</td>
+					</tr>
+					<tr>
+						<td>finish_date</td>
+						<td>Date</td>
+					</tr>
+					<tr>
+						<td>review</td>
+						<td>Object (Review)</td>
+					</tr>
+					<tr>
+						<td>game</td>
+						<td>Object (Game)</td>
+					</tr>
+					<tr>
+						<td>username</td>
+						<td>String {Not blank}</td>
+					</tr>
+				</table>
+			</div>
+
+			<p class="fs-2 fw-normal">Get a list of gamelists</p>
+
+
+			<div class="input-group mb-3 bs-light-text" style="width: 40%;">
+				<span class="input-group-text bg-dark text-success" id="inputGroup-sizing-default">GET</span>
+				<input type="text" class="form-control bg-dark text-light" aria-label="Sizing example input"
+					aria-describedby="inputGroup-sizing-default" value="/api/gameLists" readonly>
+			</div>
+
+			<div>
+				<p class="fs-5 fw-light" style="width: 90%; border-bottom: 1px solid white;">QUERY PARAMETERS</p>
+				<table class="table table-dark table-striped-columns" style="width: 90%;">
+					<tr>
+						<td>ID</td>
+						<td>Integer</td>
+					</tr>
+					<tr>
+						<td>title</td>
+						<td>String</td>
+					</tr>
+					<tr>
+						<td>username</td>
+						<td>String</td>
+					</tr>
+				</table>
+			</div>
+
+			<div>
+				<p class="fs-5 fw-light" style="width: 90%; border-bottom: 1px solid white;">RESPONSE SCHEMA</p>
+				<table class="table table-dark table-striped-columns" style="width: 90%;">
+					<tr>
+						<td>ID</td>
+						<td>Integer {Not empty}</td>
+					</tr>
+					<tr>
+						<td>title</td>
+						<td>String {Not blank}</td>
+					</tr>
+					<tr>
+						<td>description</td>
+						<td>String</td>
+					</tr>
+					<tr>
+						<td>games_count</td>
+						<td>Integer</td>
+					</tr>
+					<tr>
+						<td>username</td>
+						<td>String</td>
+					</tr>
+					<tr>
+						<td>games</td>
+						<td>Array of Objects (Game)</td>
+					</tr>
+					<tr>
+						<td>image_background</td>
+						<td>String {URL}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="~{master-page/footer}"></footer>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

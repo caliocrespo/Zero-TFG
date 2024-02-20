@@ -9,9 +9,9 @@
 	<header th:replace="~{master-page/header}"></header>
 	<div class="container text-center" style="background-color: #1C2833; color:aliceblue; max-width: 80%;">
 		
-		<p style="font-size: 40px; font-weight: 100;">Welcome to Zero</p>
-		<section style="text-align: left;">
-				<p style="border-bottom: 1px solid white;  margin-top: 10px; font-size: 30px;">Most Popular Games</p>
+		<p style="font-size: 40px; font-weight: 100; margin-bottom: -20px;">Welcome to Zero</p>
+		<section style="text-align: left; padding-bottom: 20px;">
+				<p style="border-bottom: 1px solid white;  margin-top: 10px; font-size: 30px; font-weight: 300;">Most Popular Games</p>
 	
 				<div style="display: inline-block; width: 100%;">
 					<th:block th:each="game, iterationStatus : ${games}">
@@ -27,7 +27,7 @@
 				</div>
 		</section>
 		
-		<!-- All lists public -->
+		
 	<table style="width: 100%;">
 	<tr style="border-bottom: 1px solid white;">
 		<td>
@@ -37,7 +37,7 @@
 		</td>
 	</tr>
 
-	<!-- Other user lists -->
+	
 
 
 	<tr th:if="${gameLists == null}">

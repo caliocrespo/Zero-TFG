@@ -8,8 +8,6 @@ public class GenreAPI {
     private String slug;
     @JsonProperty("games_count")
     private Integer gamesCount;
-    @JsonProperty("image_background")
-    private String imageBackground;
     private String description;
 
     // Getters and setters
@@ -46,13 +44,7 @@ public class GenreAPI {
         this.gamesCount = gamesCount;
     }
 
-    public String getImageBackground() {
-        return imageBackground;
-    }
-
-    public void setImageBackground(String imageBackground) {
-        this.imageBackground = imageBackground;
-    }
+   
 
     public String getDescription() {
         return description;

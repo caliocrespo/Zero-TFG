@@ -11,11 +11,9 @@ public class GameAPI {
     private String name;
     private String description;
     private String released;
-    private Boolean tba;
     @JsonProperty("background_image")
     private String backgroundImage; 
-    private Integer playtime;
-    private String updated;
+   
     private Double rating;
     
     public Double getRating() {
@@ -70,13 +68,7 @@ public class GameAPI {
         this.released = released;
     }
 
-    public Boolean getTba() {
-        return tba;
-    }
-
-    public void setTba(Boolean tba) {
-        this.tba = tba;
-    }
+   
 
     public String getBackgroundImage() {
         return backgroundImage;
@@ -86,22 +78,7 @@ public class GameAPI {
         this.backgroundImage = backgroundImage;
     }
 
-    public Integer getPlaytime() {
-        return playtime;
-    }
-
-    public void setPlaytime(Integer playtime) {
-        this.playtime = playtime;
-    }
-
- 
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
+   
 
     public List<PlatformListAPI> getPlatforms() {
         return platforms;

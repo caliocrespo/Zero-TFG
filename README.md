@@ -1,0 +1,1 @@
+Realización de una Aplicación web desde 0 usando Spring Boot, MySQL y tratamiento de APIs. Trata sobre una red social/portal de videojuegos donde, además de servir como base de datos (al igual que IMDB es para las películas), se podrá usar para hacer un progreso de los videojuegos con los que ha interactuado el usuario.
